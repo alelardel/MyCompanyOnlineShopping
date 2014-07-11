@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <body>
+        <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/header.xhtml"/>
+            </ui:define>
+
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+
+            <ui:define name="content">
+                myCompany.com Online Shopping cart
+                <h:form>
+                    <h:dataTable id="jobList" value="#{p}" var="job" border="1">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputLabel value="#{job.title}"/>
+                </h:column>
+                 
+            </h:dataTable>
+                    <h:inputText ></h:inputText>
+                    <h:commandButton value="Browse Catalogs" action="" />
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+
