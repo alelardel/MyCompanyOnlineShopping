@@ -9,9 +9,9 @@
     <h:body>
         Hello from MyCompany.com
         <h:form>
-        <h:commandButton value="Load" action="#{productMB.listProduct()}">
-        </h:commandButton>
-        
+            <h:commandButton value="Load" action="#{productMB.listProduct()}">
+            </h:commandButton>
+
             <h:dataTable id="productList" value="#{productMB.productList}" 
                          var="product" border="0">
                 <h:column>
@@ -25,11 +25,13 @@
                 <h:column>
                     <h:commandLink value="Detail"  action="#{productMB.getProduct(product.id)}"></h:commandLink>
                 </h:column>
-                 
+
             </h:dataTable>
-        <br />
+            <br />
         </h:form>
-        
+
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 </html>
 

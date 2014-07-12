@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body>
+        <h:form>
+            
+            <h2>Card Information</h2>
+            
+            <h:panelGrid columns="3">
+            
+            Card holder Name
+            <p:inputText id="holderName" value="#{cardInformationMB.cardInfo.cardholderName}"/>
+            <h:message for="holderName"/>
+            
+            Card Number
+            <p:inputText id="cardNumber" value="#{cardInformationMB.cardInfo.cardNumber}"/>
+            <h:message for="cardNumber"/>
+            
+            Expiry Date
+            <p:calendar id="popup" value="#{cardInformationMB.cardInfo.expiryDate}" converterMessage="Expected date format MM/DD/YYYY">
+                <f:convertDateTime pattern="MM/dd/yyyy"/>
+            </p:calendar>
+            <h:message for="popup"/>
+            
+            Security Code
+            <p:inputText id="secuCode" value="#{cardInformationMB.cardInfo.securityCode}" maxlength="3"/>
+                <h:message for="secuCode"/>
+            
+            </h:panelGrid>
+            
+            <p:commandButton value=" Save " action="#{cardInformationMB.save()}"/>
+            
+        </h:form>
+    </h:body>
+</html>

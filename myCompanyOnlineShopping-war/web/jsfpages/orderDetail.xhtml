@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body>
+        <h:form>
+            
+            <h2>Order Detail</h2>
+            
+            
+            <h3>Order Information</h3>
+            <h:panelGrid columns="2">
+                
+                Order Id
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.id}"/>
+
+                Customer Name
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.user.firstName} #{purchaseOrderMB.purchaseOrder.user.lastName}"/>
+
+                Order Date
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.buyingDate}">
+                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                </h:outputText>
+
+            </h:panelGrid>
+            
+             <h3>Billing Address</h3>
+            <h:panelGrid columns="2">
+                
+                Street
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.billingAddress.street}"/>
+
+                City
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.billingAddress.city}"/>
+
+                State
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.billingAddress.state}"/>
+                
+                Country
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.billingAddress.country}"/>
+                
+                Zip
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.billingAddress.zip}"/>
+
+            </h:panelGrid>
+             
+             <h3>Shipping Address</h3>
+            <h:panelGrid columns="2">
+                
+                Street
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.shippingAddress.street}"/>
+
+                City
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.shippingAddress.city}"/>
+
+                State
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.shippingAddress.state}"/>
+                
+                Country
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.shippingAddress.country}"/>
+                
+                Zip
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.shippingAddress.zip}"/>
+
+            </h:panelGrid>
+             
+             <h3>Customer Card Information</h3>
+            <h:panelGrid columns="2">
+                
+                Card holder Name
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.cardInformation.cardholderName}"/>
+
+                Card Number
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.cardInformation.cardNumber}"/>
+
+                Expiry Date
+                <h:outputText value="#{purchaseOrderMB.purchaseOrder.cardInformation.expiryDate}"/>
+
+            </h:panelGrid>
+            
+        </h:form>
+    </h:body>
+</html>
