@@ -2,11 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-
     </h:head>
-    <h:body>
+    <body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
                 <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
@@ -15,9 +15,33 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                Home page content ... 
+                <h:form>
+                    <h:dataTable id="productlist" value="#{productBean.products}" var="product" border="1">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{product.id}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{product.name}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{product.price}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink value="Detail"  action="#{productMB.getProduct(product.id)}"></h:commandLink>
+                    </h:column>
+                </h:dataTable>
+                <br/>
+            </h:form>
             </ui:define>
         </ui:composition>
-    </h:body>
+    </body>
 </html>
-
