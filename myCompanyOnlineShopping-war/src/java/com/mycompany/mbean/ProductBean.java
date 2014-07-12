@@ -1,10 +1,11 @@
 package com.mycompany.mbean;
 
-import com.mycompany.services.ProductService;
 import com.mycompany.models.Product;
+import com.mycompany.services.ProductService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -18,13 +19,18 @@ import javax.inject.Named;
 public class ProductBean implements Serializable {
 
     @EJB
-    ProductService productservice;
+    ProductService productService;
     Product product = null;
     List<Product> products = null;
 
     public ProductBean() {
         product = new Product();
-        products = new ArrayList<Product>();
+        products = new ArrayList<>();
+    }
+    
+    @PostConstruct
+    private void init(){
+        products = productService.getAll();
     }
 
     public Product getProduct() {
@@ -44,12 +50,12 @@ public class ProductBean implements Serializable {
     }
 
     public String addProduct() throws Exception {
-        productservice.saveProduct(product);
+        productService.saveProduct(product);
         return listProduct();
     }
 
     public String listProduct() throws Exception {
-        products = productservice.findAll();
+        products = productService.findAll();
         return "product_list";
     }
 
