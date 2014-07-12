@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,6 +24,9 @@ import javax.persistence.OneToOne;
  * @author james
  */
 @Entity
+@NamedQueries({
+     @NamedQuery(name = "checkUser", query = "select u from Users u where u.email = :uname and u.password= :upass")
+})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     

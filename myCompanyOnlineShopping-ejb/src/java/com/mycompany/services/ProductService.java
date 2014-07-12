@@ -44,8 +44,36 @@ public class ProductService {
         p.setVendor(new Vendor("Omega"));
         em.persist(p);
         
+    }
+
+    public Product get(int id) {
         
-        
+        return em.find(Product.class, id);
+    }
+    
+    public boolean saveProduct(Product product) {
+        boolean saved = false;
+        try {
+            em.persist(product);
+            saved = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return saved;
+    }
+    
+    public List<Product> findAll() {
+        TypedQuery<Product> q = em.createNamedQuery("Product.list", Product.class);
+        return q.getResultList();
+    }
+
+    public void delete(int id) {
+        Product p = em.find(Product.class, id);
+        em.remove(p);
+    }
+    
+    public Product find(int id) {
+        return em.find(Product.class, id);
     }
     
     

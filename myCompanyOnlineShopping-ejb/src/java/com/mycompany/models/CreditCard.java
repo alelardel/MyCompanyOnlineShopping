@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author james
  */
 @Entity
-public class CardInformation implements Serializable {
+public class CreditCard implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id

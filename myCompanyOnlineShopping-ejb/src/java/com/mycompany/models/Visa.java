@@ -14,6 +14,6 @@ import javax.persistence.Entity;
  * @author james
  */
 @Entity
-public class Visa extends CardInformation implements Serializable {
+public class Visa extends CreditCard implements Serializable {
     private static final long serialVersionUID = 1L;
 }

@@ -6,7 +6,7 @@
     <h:head>
 
     </h:head>
-    <h:body>
+    <body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
                 <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
@@ -15,9 +15,17 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                Home page content ... 
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputText id="custadout" value="Email: "/>
+                        <h:inputText id="custadin" value="#{userBean.user.email}"/>
+                        <h:outputText id="custpassout" value="Password: "/>
+                        <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
+                    </h:panelGrid>
+                    <h:commandButton id="submit" action="#{userBean.loginUser()}" value="Login"/>
+                </h:form>
             </ui:define>
         </ui:composition>
-    </h:body>
+    </body>
 </html>
 

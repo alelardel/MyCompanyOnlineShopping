@@ -3,22 +3,22 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      
+      xmlns:h="http://java.sun.com/jsf/html">
    
    <h:head>
-      <h:outputStylesheet library="css" name="styles.css"/>
+      <title><ui:insert name="windowTitle"/></title>
+      <h:outputStylesheet library="css" name="style.css"/>
    </h:head>   
    <h:body>   
       <div id="heading">
          <ui:insert name="heading">
             <ui:include src="/sections/mycomp/header.xhtml"/>
          </ui:insert>
-      </div>
-            
+      </div> 
+      
       <div id="sidebarLeft">
          <ui:insert name="sidebarLeft">
-            <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            <ui:include src="/sections/mycmop/sidebarLeft.xhtml"/>
          </ui:insert>
       </div>    
       

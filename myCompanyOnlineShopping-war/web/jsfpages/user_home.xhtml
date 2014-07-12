@@ -9,13 +9,15 @@
     <h:body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
-                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+                <ui:include src="/sections/mycomp/header.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                Home page content ... 
+                <h:form>
+                    <h:commandLink id="listprodlink" value="List Products" action="product_list"></h:commandLink>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

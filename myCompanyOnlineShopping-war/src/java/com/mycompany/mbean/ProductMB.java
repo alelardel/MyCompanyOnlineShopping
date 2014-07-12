@@ -2,7 +2,7 @@
  * Copyright (c)2014
  */
 
-package com.mycompany.mb;
+package com.mycompany.mbean;
 
 import com.mycompany.models.Product;
 import com.mycompany.services.ProductService;
@@ -23,7 +23,8 @@ public class ProductMB {
     @EJB
     private ProductService productService;
     
-    private List<Product> products;
+    private List<Product> productList;
+    private Product product;
 
     /**
      * Creates a new instance of ProductMB
@@ -33,19 +34,31 @@ public class ProductMB {
     
     @PostConstruct
     private void init(){
-        products = productService.getAll();
+        productList = productService.getAll();
     }
     
     public String listProduct() {
         productService.initdata();
-        products = productService.getAll();
+        productList = productService.getAll();
         
         
         return null;
     }
+    
+    public String getProduct(int id) {
 
-    public List<Product> getProducts() {
-        return products;
+        product = productService.get(id);
+        
+        
+        return "product";
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     

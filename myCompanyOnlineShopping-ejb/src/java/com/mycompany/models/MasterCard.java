@@ -14,6 +14,6 @@ import javax.persistence.Entity;
  * @author james
  */
 @Entity
-public class MasterCard extends CardInformation implements Serializable {
+public class MasterCard extends CreditCard implements Serializable {
     private static final long serialVersionUID = 1L;
 }

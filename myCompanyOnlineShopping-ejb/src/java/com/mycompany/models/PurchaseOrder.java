@@ -28,7 +28,7 @@ public class PurchaseOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -44,7 +44,7 @@ public class PurchaseOrder implements Serializable {
     private ShoppingCart shoppingCart;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private CardInformation cardInformation;
+    private CreditCard cardInformation;
     
     //@OneToMany(mappedBy = "orders")
     @ManyToOne
@@ -90,11 +90,11 @@ public class PurchaseOrder implements Serializable {
         this.shoppingCart = shoppingCart;
     }
 
-    public CardInformation getCardInformation() {
+    public CreditCard getCardInformation() {
         return cardInformation;
     }
 
-    public void setCardInformation(CardInformation cardInformation) {
+    public void setCardInformation(CreditCard cardInformation) {
         this.cardInformation = cardInformation;
     }
 
