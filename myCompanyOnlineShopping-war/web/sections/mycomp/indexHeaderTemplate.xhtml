@@ -29,23 +29,24 @@
                             <div class="row">
                                     <div class="col-sm-4">
                                             <div class="logo pull-left">
-                                                    <a href="index.html"><img src="/resources/images/home/logo.png" alt="" /></a>
+                                                    <a href="#">
+                                                        <h:form>
+                                                            <h:graphicImage library="images" name="home/logo.png"/>
+                                                        </h:form>
+                                                    </a>
                                             </div>
                                             <div class="btn-group pull-right">
                                             </div>
                                     </div>
                                     <div class="col-sm-8">
                                             <div class="shop-menu pull-right">
+                                                <h:form>
                                                     <ul class="nav navbar-nav">
-                                                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                                            <li>
-                                                                <h:form>
-                                                                    within index header template xhtml<br/>
-                                                                    <h:commandLink id="loginLink" value="Login" action="user_login">
-                                                                    </h:commandLink>
-                                                                </h:form>
-                                                            </li>
+                                                        <li><h:commandLink id="loginlink" value="Login" action="user_login"></h:commandLink></li>
+                                                        <li><h:commandLink id="register" value="Register Buyer" action="user_registration"></h:commandLink></li>
+                                                        <li><h:commandLink id="vendorreg" value="Register Vendor" action="vendor_registration"></h:commandLink></li>
                                                     </ul>
+                                                </h:form>
                                             </div>
                                     </div>
                             </div>
@@ -65,10 +66,7 @@
                                             </div>
                                             <div class="mainmenu pull-left">
                                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                                        <li><a href="index.html" class="active">Home</a></li>
-                                                            <li><a href="index.html" class="active">Products</a></li>
-            <li><a href="index.html" class="active">Support</a></li>
-                                                            <li><a href="contact-us.html">Contact</a></li>
+                                                        <li><a href="#" class="active">Home</a></li>
                                                     </ul>
                                             </div>
                                     </div>
