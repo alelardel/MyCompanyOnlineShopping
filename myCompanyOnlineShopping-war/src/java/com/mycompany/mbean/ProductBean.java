@@ -30,7 +30,7 @@ public class ProductBean implements Serializable {
     
     @PostConstruct
     private void init(){
-        products = productService.getAll();
+        products = productService.findAll();
     }
 
     public Product getProduct() {

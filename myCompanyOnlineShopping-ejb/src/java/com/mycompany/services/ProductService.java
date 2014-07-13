@@ -28,14 +28,6 @@ public class ProductService {
     public ProductService(){
         
     }
-
-    public List<Product> getAll() {
-        
-       TypedQuery<Product> query = em.createNamedQuery("Product.list", Product.class);
-        return query.getResultList();
-    
-    }
-    
     
     public void initdata(){
         

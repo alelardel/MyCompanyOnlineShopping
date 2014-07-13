@@ -24,7 +24,7 @@ public class ProductMB {
     private ProductService productService;
     
     private List<Product> productList;
-    private Product product;
+    private Product product ;
 
     /**
      * Creates a new instance of ProductMB
@@ -34,12 +34,12 @@ public class ProductMB {
     
     @PostConstruct
     private void init(){
-        productList = productService.getAll();
+        productList = productService.findAll();
     }
     
     public String listProduct() {
         productService.initdata();
-        productList = productService.getAll();
+        productList = productService.findAll();
         
         
         return null;
@@ -50,7 +50,7 @@ public class ProductMB {
         product = productService.get(id);
         
         
-        return "product";
+        return "productDetail";
     }
 
     public List<Product> getProductList() {
@@ -61,6 +61,8 @@ public class ProductMB {
         return product;
     }
 
-    
+    public void setProduct(Product product) {
+        this.product = product;
+    }
     
 }
