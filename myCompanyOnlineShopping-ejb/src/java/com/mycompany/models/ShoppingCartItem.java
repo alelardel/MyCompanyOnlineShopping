@@ -13,11 +13,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
  *
  * @author james
+ * @author Md Mojahidul Islam
  */
 @Entity
 public class ShoppingCartItem implements Serializable {
@@ -27,12 +29,25 @@ public class ShoppingCartItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     private Product product;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ShoppingCart shoppingCart;
     
     private int quantity;
     
     private double price;
+
+    public ShoppingCartItem() {
+    }
+
+    public ShoppingCartItem(Product product, ShoppingCart shoppingCart, int quantity, double price) {
+        this.product = product;
+        this.shoppingCart = shoppingCart;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
     public int getId() {
         return id;
@@ -65,4 +80,13 @@ public class ShoppingCartItem implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+    
 }

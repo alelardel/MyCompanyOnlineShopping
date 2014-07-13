@@ -44,7 +44,7 @@ public class Users implements Serializable {
     
     private String phone;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Role role;
     
     @OneToOne
@@ -53,7 +53,7 @@ public class Users implements Serializable {
     @OneToOne
     private ShippingAddress shippingAddress;
     
-    @OneToOne
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

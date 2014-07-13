@@ -9,6 +9,14 @@
       <h:outputStylesheet library="css" name="style.css"  />
     </h:head>
     <h:body>
+         <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/header.xhtml"/>
+            </ui:define>
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
         <h:form>
             
             <h2>Address</h2>
@@ -52,5 +60,7 @@
             <p:commandButton value=" Save " action="#{addressMB.save()}"/>
             
         </h:form>
+         </ui:define>
+        </ui:composition>
     </h:body>
 </html>

@@ -9,11 +9,14 @@ package com.mycompany.models;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,6 +25,11 @@ import javax.persistence.OneToOne;
  * @author james
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "listAllVendors", query = "SELECT v FROM Vendor v"),
+    @NamedQuery(name = "listNonApprovedVendors", query = "SELECT v FROM Vendor v WHERE v.approved='FALSE'"),
+    @NamedQuery(name = "listVendorUsers", query = "SELECT u FROM VendorUser u where u.vendor.id = :vid")      
+})
 public class Vendor implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +42,8 @@ public class Vendor implements Serializable {
     private String phone;
     
     private String website;
-    
+
+    @Column(unique = true)
     private String email;
     
     private boolean approved;

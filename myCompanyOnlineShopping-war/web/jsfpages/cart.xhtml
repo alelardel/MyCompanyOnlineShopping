@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body>
+         <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/header.xhtml"/>
+            </ui:define>
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
+        <h:form>
+            
+            <h2>Shopping Cart</h2>
+            
+     
+            <h:dataTable value="#{shoppingCartMB.shoppingCart.shoppingCartItems}" var="item">
+            
+               <h:column>
+    				<f:facet name="header">Product Name</f:facet>
+    				#{item.product.name}
+    			</h:column>
+ 
+    			<h:column>
+    				<f:facet name="header">Product Category</f:facet>
+    				#{item.product.category.categoryName}
+    			</h:column>
+ 
+                        <h:column>
+    				<f:facet name="header">Quantity</f:facet>
+                                <h:inputText value="#{item.quantity}"></h:inputText>
+    			</h:column>
+                
+    			<h:column>
+    				<f:facet name="header">Price</f:facet>
+    				#{item.price}
+    			</h:column>
+                
+                        <h:column>
+    				<f:facet name="header">Action</f:facet>
+                                <h:commandLink value="Remove" action="#{shoppingCartMB.removeProduct(item)}"></h:commandLink>
+                                <h:commandLink value="Update" action="#{shoppingCartMB.updateProduct(item)}"></h:commandLink>
+    			</h:column>
+ 
+                
+            </h:dataTable>
+            
+            <h:commandButton value="Checkout" action="address"/>
+            
+        </h:form>
+                 </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

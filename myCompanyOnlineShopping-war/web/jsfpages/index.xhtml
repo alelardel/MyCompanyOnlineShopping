@@ -37,7 +37,7 @@
                         <h:outputText value="#{product.price}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <h:commandLink value="Detail"  action="#{productMB.getProduct(product.id)}"></h:commandLink>
+                        <h:commandLink value="Detail"  action="#{productMB.findProduct(product.id)}"></h:commandLink>
                     </h:column>
                 </h:dataTable>
                 <br/>

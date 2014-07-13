@@ -9,6 +9,14 @@
       <h:outputStylesheet library="css" name="style.css"  />
     </h:head>
     <h:body>
+         <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/header.xhtml"/>
+            </ui:define>
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
         <h:form>
             
             <h2>Order Detail</h2>
@@ -83,7 +91,11 @@
                 <h:outputText value="#{purchaseOrderMB.purchaseOrder.cardInformation.expiryDate}"/>
 
             </h:panelGrid>
+             
+             <h:commandButton value="Confirm Order" action="confirm"/>
             
         </h:form>
+         </ui:define>
+        </ui:composition>
     </h:body>
 </html>

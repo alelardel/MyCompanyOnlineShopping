@@ -31,7 +31,7 @@ public class CardInformationMB implements Serializable {
 
     public String save() {
         if (cardInfoService.save(cardInfo)) {
-            return "success?faces-redirect=true";
+            return "orderDetail?faces-redirect=true";
         }
         return "fail?faces-redirect=true";
     }

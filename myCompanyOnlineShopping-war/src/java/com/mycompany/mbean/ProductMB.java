@@ -45,7 +45,7 @@ public class ProductMB {
         return null;
     }
     
-    public String getProduct(int id) {
+    public String findProduct(int id) {
 
         product = productService.get(id);
         

@@ -1,5 +1,6 @@
 package com.mycompany.services;
 
+import com.mycompany.models.Role;
 import com.mycompany.models.Users;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,8 +30,8 @@ public class UserService {
         return saved;
     }
 
-    public boolean authenticateUser(Users user) {
-        boolean userAuthenticated = false;
+    public Users authenticateUser(Users user) {
+
         String userName = user.getEmail();
         String passw = user.getPassword();
 
@@ -38,9 +39,24 @@ public class UserService {
         query.setParameter("uname", userName);
         query.setParameter("upass", passw);
 
-        if(!query.getResultList().isEmpty())
-            userAuthenticated = true;
-        return userAuthenticated;
+        if (!query.getResultList().isEmpty()) {
+            Users userAuthenticated = (Users) query.getSingleResult();
+            return userAuthenticated;
+        }
+        return null;
     }
+    
+    public Users findById(int id){
+        return em.find(Users.class, id);
+    }
+   public Role getUserRole(Users user) {
+        Role userRole = em.find(Role.class, user.getRole().getId());
+        if (userRole != null) {
+            return userRole;
+        } else {
+            return null;
+        }
+
+    }	
 
 }

@@ -10,13 +10,13 @@
     <h:body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
-                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+                <ui:include src="/sections/mycomp/registrationHeader.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                <h:outputText id="addcust" value="Fill the registration form"/>
+                <h:outputText id="addcust" value="Fill the Vendor registration form"/>
                 <h:form>
                     <h:panelGrid columns="2">
                         <h:outputText id="custfnout" value="Company Name: " />
@@ -26,9 +26,18 @@
                         <h:outputText id="custadout" value="Web: "/>
                         <h:inputText id="custadin" value="#{vendorMBean.vendor.website}"/>
                         <h:outputText id="custpassout" value="Email "/>
-                        <h:inputSecret id="custpassin" value="#{vendorMBean.vendor.email}"/>
+                        <h:inputText id="custpassin" value="#{vendorMBean.vendor.email}"/>
+                        <h:outputText id="vcustfnout" value="Vendor User First Name: " />
+                        <h:inputText id="vcustifnin" value="#{vendorMBean.vuser.firstName}" />
+                        <h:outputText id="vcustlnout" value="Vendor User Last Name: "/>
+                        <h:inputText id="vcustlnin" value="#{vendorMBean.vuser.lastName}"/>
+                        <h:outputText id="vcustemailout" value="Email: "/>
+                        <h:inputText id="vcustadin" value="#{vendorMBean.vuser.email}"/>
+                        <h:outputText id="vcustpassout" value="Password: "/>
+                        <h:inputSecret id="vcustpassin" value="#{vendorMBean.vuser.password}"/>
+
                     </h:panelGrid>
-                    <h:commandButton id="submit" action="#{vendorMBean.addVendor()}" value="Register"/> 
+                    <h:commandButton id="submit" action="#{vendorMBean.sendVendorRequest()}" value="Send Request"/> 
                     <h:commandButton id="cancel" value="Cancel" immediate="true" type="reset"/>
                 </h:form>
             </ui:define>

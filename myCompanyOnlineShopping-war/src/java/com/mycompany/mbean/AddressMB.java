@@ -39,7 +39,7 @@ public class AddressMB implements Serializable {
 
     public String save() {        
         if (addressService.save(address)) {
-            return "success?faces-redirect=true";
+            return "card?faces-redirect=true";
         }
         return "fail?faces-redirect=true";
     }
