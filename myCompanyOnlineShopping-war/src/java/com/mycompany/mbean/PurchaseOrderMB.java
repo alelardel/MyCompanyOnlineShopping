@@ -5,6 +5,7 @@
  */
 package com.mycompany.mbean;
 
+import com.mycompany.interfaces.PurchaseOrderServiceLocal;
 import com.mycompany.models.PurchaseOrder;
 import com.mycompany.services.PurchaseOrderService;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ import javax.inject.Named;
 public class PurchaseOrderMB implements Serializable {
 
     @EJB
-    private PurchaseOrderService purchaseOrderService;
+    private PurchaseOrderServiceLocal purchaseOrderService;
 
     private PurchaseOrder purchaseOrder;
 

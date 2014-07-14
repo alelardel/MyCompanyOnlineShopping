@@ -140,5 +140,4 @@ public class UserBean implements Serializable {
          return (Users) activeSession.getAttribute("loggedUser");
          
     }
-
 }

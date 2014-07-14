@@ -26,7 +26,12 @@
                         <h:outputText id="proddescout" value="Description: "/>
                         <h:inputText id="proddescin" value="#{productBean.product.description}"/>
                     </h:panelGrid>
-                    <h:commandButton value="Add to cart" action="#{productBean.addToCart(product)}"></h:commandButton>
+                    <h:commandButton value="Add to Cart" action="#{shoppingCartMB.addToCart()}"/>
+        
+                    <h:outputText value="#{shoppingCartMB.noOfItemsInTheCart}" style="font-size: 20px;font-weight: bold;"/>
+        
+                       <h:commandButton value="View Cart" action="cart"/>
+                       
                     <h:commandButton value="Back" action="index"></h:commandButton>
                 </h:form>
             </ui:define>

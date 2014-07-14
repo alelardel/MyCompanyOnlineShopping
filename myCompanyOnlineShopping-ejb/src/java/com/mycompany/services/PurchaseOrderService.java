@@ -22,6 +22,7 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal{
     @PersistenceContext
     private EntityManager em;
     
+    @Override
     public PurchaseOrder findById(int id){
         return em.find(PurchaseOrder.class, id);
     }
