@@ -6,6 +6,8 @@
 package com.mycompany.mbean;
 
 import com.mycompany.models.Address;
+import com.mycompany.models.BillingAddress;
+import com.mycompany.models.ShippingAddress;
 import com.mycompany.services.AddressService;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -23,24 +25,39 @@ public class AddressMB implements Serializable {
     @EJB
     private AddressService addressService;
 
-    private Address address;
+    private BillingAddress billingAddress;
+    
+    private ShippingAddress shippingAddress;
 
     public AddressMB() {
-        address = new Address();
+        billingAddress=new BillingAddress();
+        shippingAddress=new ShippingAddress();
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+   
 
     public String save() {        
-        if (addressService.save(address)) {
+        if (addressService.save(billingAddress) && addressService.save(shippingAddress)) {
             return "card?faces-redirect=true";
         }
         return "fail?faces-redirect=true";
     }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+    
+    
 }

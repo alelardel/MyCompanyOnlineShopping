@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,7 +26,9 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-     @NamedQuery(name = "checkUser", query = "select u from Users u where u.email = :uname and u.password= :upass")
+     @NamedQuery(name = "checkUser", query = "select u from Users u where u.email = :uname and u.password= :upass"),
+     @NamedQuery(name = "findUserByEmailId", query = "select u from Users u where u.email = :uemail")
+
 })
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -44,7 +47,7 @@ public class Users implements Serializable {
     
     private String phone;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Role role;
     
     @OneToOne

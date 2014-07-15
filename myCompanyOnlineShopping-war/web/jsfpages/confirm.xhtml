@@ -20,7 +20,7 @@
             <h3>Thank you for doing business with us</h3>
             <h5>Please Check your email for the confirmation receipt.</h5> 
             <h5>We will deliver your products within 3 days.</h5>
-            <h5>If you want to print your invoice please click <h:commandButton value="here" action="#{invoiceMB.generateInvoicePDF()}"/></h5>
+            <h5>If you want to print your invoice please click <h:commandButton value="here" action="#{invoiceMB.generateInvoicePDF(purchaseOrderMB.purchaseOrder.id)}"/></h5>
             <h5>Have a good day !!</h5>
         </h:form>
                  </ui:define>

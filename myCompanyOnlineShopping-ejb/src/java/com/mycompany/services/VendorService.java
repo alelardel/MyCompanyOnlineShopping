@@ -18,8 +18,7 @@ import javax.persistence.TypedQuery;
 @LocalBean
 public class VendorService {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+   
     @PersistenceContext
     private EntityManager em;
 

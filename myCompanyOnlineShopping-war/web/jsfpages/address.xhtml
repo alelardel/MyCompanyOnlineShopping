@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
       <h:outputStylesheet library="css" name="style.css"  />
@@ -19,45 +16,93 @@
             <ui:define name="content">
         <h:form>
             
-            <h2>Address</h2>
             
-            <h:panelGrid columns="3">
+            
+            
+            
+           
                 
-            Address Type
-            <p:selectOneMenu id="addressType">
-                <f:selectItem itemValue="1" itemLabel="Billing Address"/>
-                <f:selectItem itemValue="2" itemLabel="Shipping Address"/>
-            </p:selectOneMenu>
-            <h:message for="addressType"/>
-            
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 50%">
+                            
+             Billing Address
+            <h:panelGrid columns="3">
+               
+          
             Street
-            <p:inputText id="street" value="#{addressMB.address.street}"/>
+            <h:inputText id="street" value="#{purchaseOrderMB.billingAddress.street}"/>
             <h:message for="street"/>
             
             City
-            <p:inputText id="city" value="#{addressMB.address.city}"/>
+            <h:inputText id="city" value="#{purchaseOrderMB.billingAddress.city}"/>
             <h:message for="city"/>
             
             State
-            <p:inputText id="state" value="#{addressMB.address.state}" maxlength="30"/>
+            <h:inputText id="state" value="#{purchaseOrderMB.billingAddress.state}" maxlength="30"/>
             <h:message for="state"/>
             
             Country
-            <p:selectOneMenu id="country" value="#{addressMB.address.country}">
+            <h:selectOneMenu id="country" value="#{purchaseOrderMB.billingAddress.country}">
                 <f:selectItem itemValue="US" itemLabel="United States"/>
                 <f:selectItem itemValue="CA" itemLabel="Canada"/>
                 <f:selectItem itemValue="MX" itemLabel="Mexico"/>
-            </p:selectOneMenu>
+            </h:selectOneMenu>
             <h:message for="country"/>
             
             Zip
-            <p:inputText id="zip" value="#{addressMB.address.zip}">
-            </p:inputText>
+            <h:inputText id="zip" value="#{purchaseOrderMB.billingAddress.zip}" converterMessage="Zip code must be number only">
+                <f:convertNumber/>
+            </h:inputText>
             <h:message for="zip"/>
             
             </h:panelGrid>
             
-            <p:commandButton value=" Save " action="#{addressMB.save()}"/>
+                            
+                        </td>
+                        
+                        
+                        
+                        <td style="width: 50%">
+                             
+             Shipping Address
+            <h:panelGrid columns="3">
+              
+           
+            Street
+            <h:inputText id="street1" value="#{purchaseOrderMB.shippingAddress.street}"/>
+            <h:message for="street1"/>
+            
+            City
+            <h:inputText id="city1" value="#{purchaseOrderMB.shippingAddress.city}"/>
+            <h:message for="city1"/>
+            
+            State
+            <h:inputText id="state1" value="#{purchaseOrderMB.shippingAddress.state}" maxlength="30"/>
+            <h:message for="state1"/>
+            
+            Country
+            <h:selectOneMenu id="country1" value="#{purchaseOrderMB.shippingAddress.country}">
+                <f:selectItem itemValue="US" itemLabel="United States"/>
+                <f:selectItem itemValue="CA" itemLabel="Canada"/>
+                <f:selectItem itemValue="MX" itemLabel="Mexico"/>
+            </h:selectOneMenu>
+            <h:message for="country1"/>
+            
+            Zip
+            <h:inputText id="zip1" value="#{purchaseOrderMB.shippingAddress.zip}" converterMessage="Zip code must be number only">
+                <f:convertNumber/>
+            </h:inputText>
+            <h:message for="zip1"/>
+            
+            </h:panelGrid>
+            
+                            
+                        </td>
+                    </tr>
+                </table>
+
+            <h:commandButton value=" Next " action="#{purchaseOrderMB.saveAddress()}"/>
             
         </h:form>
          </ui:define>

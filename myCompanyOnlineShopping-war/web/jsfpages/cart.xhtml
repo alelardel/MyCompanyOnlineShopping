@@ -22,7 +22,7 @@
      <section id="cart_items">
 		<div class="container">
 			<div class="table-responsive cart_info">
-            <h:dataTable styleClass="table table-condensed" value="#{shoppingCartMB.shoppingCart.shoppingCartItems}" var="item">
+                            <h:dataTable styleClass="table table-condensed" value="#{purchaseOrderMB.shoppingCart.shoppingCartItems}" var="item">
             
                         <h:column class="cart_product">
                             <f:facet class="image" name="header">Item</f:facet>
@@ -36,7 +36,7 @@
  
                         <h:column class="cart_price">
     				<f:facet name="header">Price</f:facet>
-                                #{item.price}                                
+                                #{item.product.price}                                
     			</h:column>
                 
     			<h:column class="cart_quantity">
@@ -46,13 +46,13 @@
                 
                         <h:column class="cart_total">
     				<f:facet name="header">Total</f:facet>
-                                #{item.price}*#{item.quantity}
+                                #{item.price}
     			</h:column>
                 
                         <h:column class="cart_delete">
     				<f:facet name="header">Action</f:facet>
-                                <h:commandLink value="Remove" action="#{shoppingCartMB.removeProduct(item)}"></h:commandLink>
-                                <h:commandLink value="Update" action="#{shoppingCartMB.updateProduct(item)}"></h:commandLink>
+                                <h:commandLink value="Remove" action="#{purchaseOrderMB.removeProduct(item)}"></h:commandLink>
+                                <h:commandLink value="Update" action="#{purchaseOrderMB.updateProduct(item)}"></h:commandLink>
     			</h:column>
  
                 
@@ -61,7 +61,7 @@
 			<br/><br/><br/>
 		</div>
 	</section>
-            <h:commandButton value="Checkout" action="address"/>
+            <h:commandButton value="Checkout" action="#{purchaseOrderMB.checkout()}"/>
             
         </h:form>
                  </ui:define>

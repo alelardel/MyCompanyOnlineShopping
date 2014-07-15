@@ -76,5 +76,18 @@ public class ProductService {
         return em.find(Product.class, id);
     }
     
+    /**
+     * Search product by name 
+     * @param pname
+     * @return 
+     */
+    public List<Product> searchByProductName(String pname){
+        TypedQuery<Product> q = em.createNamedQuery("findProductByName", Product.class);
+        String likeParam = "%" + pname + "%";
+        q.setParameter("pname", likeParam);
+        return q.getResultList();
+    
+    }
+    
     
 }

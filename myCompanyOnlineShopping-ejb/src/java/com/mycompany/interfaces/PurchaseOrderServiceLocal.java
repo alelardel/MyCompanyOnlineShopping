@@ -6,7 +6,11 @@
 
 package com.mycompany.interfaces;
 
+import com.mycompany.models.BillingAddress;
+import com.mycompany.models.CreditCard;
 import com.mycompany.models.PurchaseOrder;
+import com.mycompany.models.ShippingAddress;
+import com.mycompany.models.ShoppingCart;
 import javax.ejb.Local;
 
 /**
@@ -16,4 +20,5 @@ import javax.ejb.Local;
 @Local
 public interface PurchaseOrderServiceLocal {
     public PurchaseOrder findById(int id);
+    public PurchaseOrder saveOrder(ShoppingCart shoppingCart,BillingAddress billingAddress,ShippingAddress shippingAddress,CreditCard creditCard);
 }

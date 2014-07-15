@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
       <h:outputStylesheet library="css" name="style.css"  />
@@ -31,11 +30,41 @@
                 Customer Name
                 <h:outputText value="#{purchaseOrderMB.purchaseOrder.user.firstName} #{purchaseOrderMB.purchaseOrder.user.lastName}"/>
 
-                Order Date
-                <h:outputText value="#{purchaseOrderMB.purchaseOrder.buyingDate}">
-                    <f:convertDateTime pattern="MM/dd/yyyy"/>
-                </h:outputText>
-
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+                
+                <h:dataTable value="#{purchaseOrderMB.purchaseOrder.shoppingCart.shoppingCartItems}" var="item">
+                
+            
+            
+                        <h:column class="cart_product">
+                            <f:facet class="image" name="header">Item</f:facet>
+                                <h:graphicImage value="#{item.product.imageURL}" alt="Product_Image"/>
+    			</h:column>
+ 
+                        <h:column class="cart_description">
+    				<f:facet name="header"></f:facet>
+    				#{item.product.name}
+    			</h:column>
+ 
+                        <h:column class="cart_price">
+    				<f:facet name="header">Price</f:facet>
+                                #{item.product.price}                                
+    			</h:column>
+                
+    			<h:column class="cart_quantity">
+    				<f:facet name="header">Quantity</f:facet>
+                                #{item.quantity}
+    			</h:column>
+                
+                        <h:column class="cart_total">
+    				<f:facet name="header">Total</f:facet>
+                                #{item.price}
+    			</h:column>
+                
+            </h:dataTable>
+                
             </h:panelGrid>
             
              <h3>Billing Address</h3>

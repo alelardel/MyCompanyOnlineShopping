@@ -5,6 +5,7 @@
  */
 package com.mycompany.services;
 
+import com.mycompany.interfaces.CardInformationServiceLocal;
 import com.mycompany.models.CreditCard;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,19 +16,16 @@ import javax.persistence.PersistenceContext;
  * @author Md Mojahidul Islam
  */
 @Stateless
-public class CardInformationService {
+public class CardInformationService implements CardInformationServiceLocal {
 
     @PersistenceContext
     private EntityManager em;
 
-    public boolean save(CreditCard cardInfo) {
-        boolean saved = false;
-        try {
-            em.persist(cardInfo);
-            saved = true;
-        } catch (Exception e) {
+    @Override
+    public CreditCard save(CreditCard cardInfo) {
 
-        }
-        return saved;
+            cardInfo=em.merge(cardInfo);
+           
+        return cardInfo;
     }
 }

@@ -2,6 +2,7 @@ package com.mycompany.services;
 
 import com.mycompany.models.Role;
 import com.mycompany.models.Users;
+import com.mycompany.models.VendorUser;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,11 +46,24 @@ public class UserService {
         }
         return null;
     }
-    
-    public Users findById(int id){
+
+    /**
+     * Fins user by ID
+     *
+     * @param id
+     * @return
+     */
+    public Users findById(int id) {
         return em.find(Users.class, id);
     }
-   public Role getUserRole(Users user) {
+
+    /**
+     * Get which user role is the user assigned.
+     *
+     * @param user
+     * @return
+     */
+    public Role getUserRole(Users user) {
         Role userRole = em.find(Role.class, user.getRole().getId());
         if (userRole != null) {
             return userRole;
@@ -58,5 +72,25 @@ public class UserService {
         }
 
     }	
+
+    public Users findBYEmailId(String email) {
+        Query query = em.createNamedQuery("findUserByEmailId");
+        query.setParameter("uemail", email);
+        if (!query.getResultList().isEmpty()) {
+            Users registeredUser = (Users) query.getSingleResult();
+            return registeredUser;
+        }
+        return null;
+    }
+    
+    public VendorUser findVuserBYEmailId(String email) {
+        Query query = em.createNamedQuery("findUserByEmailId");
+        query.setParameter("uemail", email);
+        if (!query.getResultList().isEmpty()) {
+            VendorUser registeredUser = (VendorUser) query.getSingleResult();
+            return registeredUser;
+        }
+        return null;
+    }
 
 }

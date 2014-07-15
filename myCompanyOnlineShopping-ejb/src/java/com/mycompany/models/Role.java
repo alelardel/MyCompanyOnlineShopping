@@ -11,18 +11,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author james
  */
 @Entity
+@NamedQueries({
+     @NamedQuery(name = "findRoleByUserCode", query = "select r from Role r where r.userCode = :rcode")
+})
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    private int userCode;
 
     private String name;
 
@@ -48,4 +55,14 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(int userCode) {
+        this.userCode = userCode;
+    }
+    
+    
 }

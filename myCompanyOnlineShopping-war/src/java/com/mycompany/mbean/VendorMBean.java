@@ -1,14 +1,22 @@
 
 package com.mycompany.mbean;
 
+import com.mycompany.models.Role;
 import com.mycompany.models.Vendor;
 import com.mycompany.models.VendorUser;
+import com.mycompany.services.RoleService;
+import com.mycompany.services.UserService;
 import com.mycompany.services.VendorService;
 import com.mycompany.util.PasswordService;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -25,7 +33,18 @@ public class VendorMBean implements Serializable {
     private VendorUser vuser = new VendorUser();
     private PasswordService passwordservice = new PasswordService();
 
+    @EJB
+    private UserService userService;
+    
+    @EJB
+    RoleService roleService;
+
+    @Inject
+    private UserBean userbean;
+
     public VendorMBean() {
+        Vendor vendor = new Vendor();
+        VendorUser vuser = new VendorUser();
     }
 
     public VendorService getVendorService() {
@@ -64,8 +83,12 @@ public class VendorMBean implements Serializable {
 
         //encrypt vendor user passworcd 
         vuser.setPassword(passwordservice.encrypt(vuser.getPassword()));
+        
+        //by default the vendor user is assigned a customer role 
+        Role vuserrole = roleService.getUserRoleBYUserCode(4);
+        vuser.setRole(vuserrole);
         if (vendorService.sendVendorReq(vendor, vuser)) {
-            return "registration_confirmation";
+            return "vendorRequestSentConfirmation";
         }
         return null;
     }
@@ -93,15 +116,32 @@ public class VendorMBean implements Serializable {
      * @param vendor
      * @return
      */
-    public boolean approveVendor(Vendor vendor) {
+    public String approveVendor(Vendor vendor) {
         boolean approved = false;
         vendor.setApproved(true);
         if (vendorService.updateVendor(vendor)){
             approved = true;
         }
 
-        return approved;
+        //return the same page that shows the admin home
+        return "admin_home";
 
+    }
+
+
+    
+    
+    
+    
+
+    public void checkEmail(FacesContext fc, UIComponent c, Object value) {
+
+        String email = (String) value;
+        vuser = userService.findVuserBYEmailId(email);
+        if (vuser != null) {
+            throw new ValidatorException(
+                    new FacesMessage("Email address registered. Please enter new email id"));
+        }
     }
 
 }

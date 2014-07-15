@@ -26,8 +26,8 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Product.list", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p")
-})
+    @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p"),
+    @NamedQuery(name = "findProductByName", query = "SELECT p FROM Product p WHERE p.name LIKE :pname"),})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,11 +47,11 @@ public class Product implements Serializable {
     private int quantity;
     
     //@OneToMany(mappedBy = "products")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Vendor vendor;
     
     //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Category category;
     
     public Product() {

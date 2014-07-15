@@ -5,13 +5,30 @@
  */
 package com.mycompany.mbean;
 
+import com.mycompany.interfaces.CardInformationServiceLocal;
 import com.mycompany.interfaces.PurchaseOrderServiceLocal;
+import com.mycompany.interfaces.ShoppingCartServicesLocal;
+import com.mycompany.models.BillingAddress;
+import com.mycompany.models.CreditCard;
+import com.mycompany.models.Product;
 import com.mycompany.models.PurchaseOrder;
-import com.mycompany.services.PurchaseOrderService;
+import com.mycompany.models.ShippingAddress;
+import com.mycompany.models.ShoppingCart;
+import com.mycompany.models.ShoppingCartItem;
+import com.mycompany.models.Users;
+import com.mycompany.services.AddressService;
+import com.mycompany.services.CardInformationService;
+import com.mycompany.services.ProductService;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,10 +41,152 @@ public class PurchaseOrderMB implements Serializable {
     @EJB
     private PurchaseOrderServiceLocal purchaseOrderService;
 
+    @EJB
+    private ShoppingCartServicesLocal shoppingCartService;
+
+    @EJB
+    private ProductService productService;
+
+    @EJB
+    private CardInformationServiceLocal cardInfoService;
+
+    private CreditCard cardInfo;
+
+    @EJB
+    private AddressService addressService;
+
+    private BillingAddress billingAddress;
+
+    private ShippingAddress shippingAddress;
+
     private PurchaseOrder purchaseOrder;
 
+    private ShoppingCart shoppingCart = new ShoppingCart();
+
+    private Product product;
+
+    private int productQty;
+
+    private double price;
+
+    private int noOfItemsInTheCart;
+
+    private Users usr=null;
+    
+    private String redirect;
+
     public PurchaseOrderMB() {
-        purchaseOrder=new PurchaseOrder();
+        purchaseOrder = new PurchaseOrder();
+        billingAddress = new BillingAddress();
+        shippingAddress = new ShippingAddress();
+        cardInfo = new CreditCard();
+    }
+
+    @PostConstruct
+    public void init() {
+        HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        usr = (Users) activeSession.getAttribute("loggedUser");
+    }
+
+    public void addToCart(int productId) {
+
+        //TODO: I am adding some demo value about a product
+        product = productService.get(productId);
+        //productQty = 5;
+        //price = 100;
+
+        if (shoppingCart.getId() == 0) {
+            shoppingCart.setUser(usr);
+            shoppingCart.setShopDate(Calendar.getInstance());
+            //shoppingCart.setTotalPrice(100000.00);
+        }
+
+        List<ShoppingCartItem> cartItems = shoppingCart.getShoppingCartItems();
+        ShoppingCartItem item = new ShoppingCartItem();
+        item.setProduct(product);
+        item.setQuantity(productQty);
+        item.setPrice(productQty * product.getPrice());
+        item.setShoppingCart(shoppingCart);
+        cartItems.add(item);
+
+        //TODO: Change user with proper user info and Total Price
+        shoppingCart = shoppingCartService.addToCart(shoppingCart);
+        if (shoppingCart != null) {
+            System.out.println("Product in Shopping cart Add Successful");
+
+            noOfItemsInTheCart = shoppingCart.getShoppingCartItems().size();
+
+        } else {
+            System.out.println("Product add failed");
+        }
+    }
+
+    public void removeProduct(ShoppingCartItem item) {
+        shoppingCart = shoppingCartService.removeFromCart(shoppingCart, item);
+    }
+
+    public void updateProduct(ShoppingCartItem item) {
+
+        for (ShoppingCartItem cartItem : shoppingCart.getShoppingCartItems()) {
+            if (cartItem.getId() == item.getId()) {
+                cartItem.setPrice(item.getQuantity() * item.getProduct().getPrice());
+            }
+        }
+        shoppingCart = shoppingCartService.addToCart(shoppingCart);
+    }
+
+    public String saveAddress() {
+
+        System.out.println("Cart " + shoppingCart);
+
+        if (addressService.save(billingAddress) && addressService.save(shippingAddress)) {
+            return "card?faces-redirect=true";
+        }
+        return "fail?faces-redirect=true";
+    }
+
+    public String saveCardInformation() {
+        
+        cardInfo=cardInfoService.save(cardInfo);
+        
+        
+        
+        purchaseOrder=purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
+        
+         return "orderDetail?faces-redirect=true";
+    }
+    
+    public String checkout(){
+        if(usr==null){
+            UserBean.setRedirect("address");
+            return "user_login";
+        }else{
+            return "address";
+        }
+    }
+
+    public CreditCard getCardInfo() {
+        return cardInfo;
+    }
+
+    public void setCardInfo(CreditCard cardInfo) {
+        this.cardInfo = cardInfo;
+    }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     public void findOrderDetails() {
@@ -42,5 +201,60 @@ public class PurchaseOrderMB implements Serializable {
         this.purchaseOrder = purchaseOrder;
     }
 
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getProductQty() {
+        return productQty;
+    }
+
+    public void setProductQty(int productQty) {
+        this.productQty = productQty;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getNoOfItemsInTheCart() {
+        return noOfItemsInTheCart;
+    }
+
+    public void setNoOfItemsInTheCart(int noOfItemsInTheCart) {
+        this.noOfItemsInTheCart = noOfItemsInTheCart;
+    }
+
+    public Users getUsr() {
+        return usr;
+    }
+
+    public void setUsr(Users usr) {
+        this.usr = usr;
+    }
+
+    public String getRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
+    }
 
 }

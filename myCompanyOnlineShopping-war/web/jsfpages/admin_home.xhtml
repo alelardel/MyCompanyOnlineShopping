@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
     <h:head>
 
     </h:head>
@@ -16,36 +17,19 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-
-                Approve Vendors. 
                 <h:form>
-                    <h:dataTable id="productlist" value="#{vendorMBean.nonApprovedVendors}" var="vendors" border="1">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Company"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{vendors.vendorName}"></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Web"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{vendors.website}"></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Phone"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{vendors.phone}"></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Approval"></h:outputText>
-                            </f:facet>
-                            <h:commandButton value="Approve" action="#{vendorMBean.approveVendor(vendors)}"></h:commandButton>
-                        </h:column>
-                    </h:dataTable>
+                    <h:commandLink value="Vendor Request" action="#{adminMB.showVendorRequest()}"></h:commandLink>
                 </h:form>
+                <h:form>
+                    <h:commandLink value="Add StaffUser" action="#{adminMB.addStaffUser()}"></h:commandLink>
+                </h:form>
+                <h:form>
+                    <h:commandLink value="Create Product Category" action="#{adminMB.addCategory()}"></h:commandLink>
+                </h:form>
+<!--                <h:form>
+                    <h:commandLink value="Update User" action=""></h:commandLink>
+                </h:form>-->
+
             </ui:define>
         </ui:composition>
     </h:body>

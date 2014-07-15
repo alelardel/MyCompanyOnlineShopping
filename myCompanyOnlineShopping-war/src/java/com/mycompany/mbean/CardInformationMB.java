@@ -5,8 +5,8 @@
  */
 package com.mycompany.mbean;
 
+import com.mycompany.interfaces.CardInformationServiceLocal;
 import com.mycompany.models.CreditCard;
-import com.mycompany.services.CardInformationService;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -21,7 +21,7 @@ import javax.inject.Named;
 public class CardInformationMB implements Serializable {
 
     @EJB
-    private CardInformationService cardInfoService;
+    private CardInformationServiceLocal cardInfoService;
 
     private CreditCard cardInfo;
 
@@ -30,10 +30,10 @@ public class CardInformationMB implements Serializable {
     }
 
     public String save() {
-        if (cardInfoService.save(cardInfo)) {
-            return "orderDetail?faces-redirect=true";
-        }
-        return "fail?faces-redirect=true";
+        
+        cardInfo=cardInfoService.save(cardInfo);
+       
+         return "orderDetail?faces-redirect=true";
     }
 
     public CreditCard getCardInfo() {

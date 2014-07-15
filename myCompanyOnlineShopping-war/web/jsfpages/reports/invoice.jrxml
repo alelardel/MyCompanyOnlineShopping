@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad2627df-11d6-4213-8c2a-c23f61ce6b0b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="product.name" class="java.lang.String"/>
+	<field name="product.price" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="7" width="531" height="27" uuid="b234546d-4088-4ba5-8bf2-bf57bcb32762"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="281" y="5" width="100" height="14" uuid="80a2a5bf-3c2d-4cba-be3a-732a687900e6"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="5" width="100" height="14" uuid="31a86f56-8754-4543-9c25-e37d85c96596"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="4" width="100" height="14" uuid="88afe268-3415-48e5-adea-84b7124aacd2"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Product Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="5" width="100" height="14" uuid="1aafeb9b-406a-41c4-988c-a665147a27d5"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="164" y="7" width="100" height="20" uuid="48291746-0f7f-459d-9c54-ab03bef28a02"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="7" width="100" height="20" uuid="9b78a60f-1573-487b-80f7-bfbf0dfd50e4"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="7" width="100" height="20" uuid="1bcf4d63-f5ce-435f-b4b5-a437d601c390"/>
+				<textFieldExpression><![CDATA[$F{product.name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="7" width="100" height="20" uuid="a0f7cdfc-8307-4df1-b4a7-cd9c42a5c6a4"/>
+				<textFieldExpression><![CDATA[$F{product.price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
+</jasperReport>

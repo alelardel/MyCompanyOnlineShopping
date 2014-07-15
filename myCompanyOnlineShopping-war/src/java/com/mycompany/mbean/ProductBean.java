@@ -32,6 +32,7 @@ public class ProductBean implements Serializable {
     private VendorUser user = new VendorUser();
     private Category category = new Category();
     private String categoryName;
+    private String searchKey;
 
     @Inject
     UserBean usersmbean;
@@ -51,6 +52,14 @@ public class ProductBean implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
     }
 
     @PostConstruct
@@ -81,7 +90,7 @@ public class ProductBean implements Serializable {
         product.setCategory(category);
         product.setVendor(vendor);
         productService.saveProduct(product);
-        return listProduct();
+        return "user_home";
     }
 
     public String listProduct() throws Exception {
@@ -116,6 +125,21 @@ public class ProductBean implements Serializable {
         //set all shipping cart related info here
        
         return "shoppingCartInfo";
+    }
+
+    /**
+     * Search product by name
+     *
+     * @return
+     */
+    public String searchProduct() {
+        List<Product> searchResult = productService.searchByProductName(searchKey);
+        if (!searchResult.isEmpty()) {
+            products = searchResult;
+            return "user_searchResult";            
+        }
+        
+        return null;
     }
 
 }

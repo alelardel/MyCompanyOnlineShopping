@@ -4,6 +4,7 @@ import com.mycompany.models.Product;
 import com.mycompany.models.ShoppingCart;
 import com.mycompany.models.ShoppingCartItem;
 import com.mycompany.interfaces.ShoppingCartServicesLocal;
+import com.mycompany.models.Users;
 import com.mycompany.services.ProductService;
 import com.mycompany.services.UserService;
 import javax.inject.Named;
@@ -11,7 +12,10 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  * Shopping Cart managed bean is used to perform all shopping related
@@ -43,28 +47,36 @@ public class ShoppingCartMB implements Serializable {
     private double price;
 
     private int noOfItemsInTheCart;
+    
+    private Users usr;
 
     public ShoppingCartMB() {
     }
+    
+    @PostConstruct
+    public void init(){
+        HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+         usr= (Users) activeSession.getAttribute("loggedUser");
+    }
 
-    public void addToCart() {
+    public void addToCart(int productId) {
 
         //TODO: I am adding some demo value about a product
-        product = productService.get(1);
-        productQty = 5;
-        price = 100;
+        product = productService.get(productId);
+        //productQty = 5;
+        //price = 100;
 
         if (shoppingCart.getId()==0) {
-            shoppingCart.setUser(userService.findById(1));
+            shoppingCart.setUser(usr);
             shoppingCart.setShopDate(Calendar.getInstance());
-            shoppingCart.setTotalPrice(100000.00);
+            //shoppingCart.setTotalPrice(100000.00);
         }
 
         List<ShoppingCartItem> cartItems = shoppingCart.getShoppingCartItems();
         ShoppingCartItem item = new ShoppingCartItem();
         item.setProduct(product);
         item.setQuantity(productQty);
-        item.setPrice(price);
+        item.setPrice(productQty*product.getPrice());
         item.setShoppingCart(shoppingCart);
         cartItems.add(item);
 
@@ -85,6 +97,12 @@ public class ShoppingCartMB implements Serializable {
     }
     
     public void updateProduct(ShoppingCartItem item){
+        
+        for(ShoppingCartItem cartItem:shoppingCart.getShoppingCartItems()){
+            if(cartItem.getId()==item.getId()){
+                 cartItem.setPrice(item.getQuantity()*item.getProduct().getPrice());
+            }
+        }
         shoppingCart=shoppingCartService.addToCart(shoppingCart);
     }
 
