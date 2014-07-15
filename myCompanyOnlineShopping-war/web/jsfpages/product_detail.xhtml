@@ -17,34 +17,35 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <h:panelGrid columns="2">
-                        <h:outputText id="prodnameout" value="Product: "/>
-                        <h:inputText id="prodnamein" value="#{productBean.product.name}"/>
-                        <h:outputText id="prodpriceout" value="Price: "/>
-                        <h:inputText id="prodpricein" value="#{productBean.product.price}"/>
-                        <h:outputText id="produrlout" value="URL: "/>
-                        <h:inputText id="produrlin" value="#{productBean.product.imageURL}"/>
-                        <h:outputText id="proddescout" value="Description: "/>
-                        <h:inputText id="proddescin" value="#{productBean.product.description}"/>
-                    </h:panelGrid>
-                    
-                   <h:outputText id="prodqtyout" value="Quantity: "/>
-                   <h:inputText id="prodqtyin" value="#{purchaseOrderMB.productQty}" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
-                        <f:validateLongRange minimum="1" maximum="100"/>
-                    </h:inputText>
-                    <h:message for="prodqtyin" style="color:red;"/>
-                    
-                    <h:commandButton value="Add to Cart" action="#{purchaseOrderMB.addToCart(productBean.product.id)}"/>
-        
-                    <h:outputText value="#{purchaseOrderMB.noOfItemsInTheCart}" style="font-size: 20px;font-weight: bold;"/>
-        
-                       <h:commandButton value="View Cart" action="cart"/>
-                       
-                    <h:commandButton value="Back" action="index"></h:commandButton>
+                    <div class="col-sm-9 padding-right">
+                        <div class="product-information"><!--/product-information-->
+                            <h2>#{productBean.product.name}</h2>
+                            <p><b>Brand:</b> #{productBean.product.vendor.vendorName}</p>
+                            
+                            <div class="view-product">
+                                <img src="#{productBean.product.imageURL}" alt="" />
+                            </div>
+                            <br/>
+                            <div>
+                                #{productBean.product.description}
+                            </div>
+                            <span>
+                                <span>US $#{productBean.product.price}</span>
+                                <label>Quantity:</label>
+                                <input type="text" value="#{purchaseOrderMB.noOfItemsInTheCart}" />
+<!--                                <button type="button" class="btn btn-fefault cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    
+                                </button>-->
+                                <h:commandButton value="Add to Cart" styleClass="btn btn-fefault cart" action="#{purchaseOrderMB.addToCart(productBean.product.id)}"/>
+                                <h:commandButton value="View Cart" action="cart"/>
+                                <h:commandButton value="Back" action="index"></h:commandButton>
+                            </span>
+                        </div><!--/product-information-->
+                    </div>
                 </h:form>
             </ui:define>
         </ui:composition>
-
     </h:body>
 </html>
 
