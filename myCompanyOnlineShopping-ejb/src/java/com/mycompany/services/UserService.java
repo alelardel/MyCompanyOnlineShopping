@@ -1,8 +1,13 @@
 package com.mycompany.services;
 
+import com.mandrill.clients.exception.RequestFailedException;
+import com.mandrill.clients.model.MandrillTemplatedMessageRequest;
 import com.mycompany.models.Role;
 import com.mycompany.models.Users;
 import com.mycompany.models.VendorUser;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,15 +22,22 @@ public class UserService {
 
     @PersistenceContext
     private EntityManager em;
+    
+    @EJB
+    MandrillService mandrillService;
 
-    public boolean saveUser(Users user) {
-     
+    public boolean saveUser(Users user) {     
         boolean saved = false;
         try {
             em.persist(user);
             saved = true;
+            try {
+                MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillMessageObject(null, user, "Welcome to MyCompany.com!");
+                mandrillService.sendTemplatedMessage(mandrillMessage);
+            } catch (RequestFailedException ex) {
+                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (Exception e) {
-
         }
 
         return saved;
@@ -46,24 +58,11 @@ public class UserService {
         }
         return null;
     }
-
-    /**
-     * Fins user by ID
-     *
-     * @param id
-     * @return
-     */
-    public Users findById(int id) {
+    
+    public Users findById(int id){
         return em.find(Users.class, id);
     }
-
-    /**
-     * Get which user role is the user assigned.
-     *
-     * @param user
-     * @return
-     */
-    public Role getUserRole(Users user) {
+   public Role getUserRole(Users user) {
         Role userRole = em.find(Role.class, user.getRole().getId());
         if (userRole != null) {
             return userRole;
