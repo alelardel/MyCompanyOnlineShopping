@@ -85,8 +85,7 @@ public class PurchaseOrderMB implements Serializable {
         productQty = 1;
     }
 
-    @PostConstruct
-    public void init() {
+    public void refresh() {
         HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         usr = (Users) activeSession.getAttribute("loggedUser");
 
@@ -210,6 +209,7 @@ public class PurchaseOrderMB implements Serializable {
     }
 
     public BillingAddress getBillingAddress() {
+        refresh();
         return billingAddress;
     }
 
@@ -218,6 +218,7 @@ public class PurchaseOrderMB implements Serializable {
     }
 
     public ShippingAddress getShippingAddress() {
+        refresh();
         return shippingAddress;
     }
 
