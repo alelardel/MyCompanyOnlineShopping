@@ -6,13 +6,19 @@
 
 package com.mycompany.services;
 
+import com.mandrill.clients.exception.RequestFailedException;
+import com.mandrill.clients.model.MandrillTemplatedMessageRequest;
 import com.mycompany.interfaces.PurchaseOrderServiceLocal;
 import com.mycompany.models.BillingAddress;
 import com.mycompany.models.CreditCard;
 import com.mycompany.models.PurchaseOrder;
 import com.mycompany.models.ShippingAddress;
 import com.mycompany.models.ShoppingCart;
+import com.mycompany.models.Users;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +32,9 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal{
 
     @PersistenceContext
     private EntityManager em;
+    
+    @EJB
+    MandrillService mandrillService;
     
     @Override
     public PurchaseOrder findById(int id){
@@ -44,6 +53,14 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal{
             order.setShoppingCart(shoppingCart);
             
             order=em.merge(order);
+            
+              try {
+                  
+                MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillMessageObject(null, shoppingCart.getUser(), "Thank you for shopping with us.");
+                mandrillService.sendTemplatedMessage(mandrillMessage);
+            } catch (RequestFailedException ex) {
+                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             return order;
         }

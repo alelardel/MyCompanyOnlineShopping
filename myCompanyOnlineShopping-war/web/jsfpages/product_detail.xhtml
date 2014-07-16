@@ -32,7 +32,10 @@
                             <span>
                                 <span>US $#{productBean.product.price}</span>
                                 <label>Quantity:</label>
-                                <input type="text" value="#{purchaseOrderMB.noOfItemsInTheCart}" />
+                                <h:inputText value="#{purchaseOrderMB.productQty}" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
+                                    <f:validateLongRange minimum="1" maximum="10000"/>
+                                </h:inputText>
+                                CartQty<h:outputText value="#{purchaseOrderMB.noOfItemsInTheCart}" />
 <!--                                <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     

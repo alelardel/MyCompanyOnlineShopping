@@ -25,17 +25,24 @@
             <h:message for="holderName"/>
             
             Card Number
-            <h:inputText id="cardNumber" value="#{purchaseOrderMB.cardInfo.cardNumber}"/>
-            <h:message for="cardNumber"/>
+            <h:inputText id="cardNumber" value="#{purchaseOrderMB.cardInfo.cardNumber}" maxlength="16" label="Credit Card" validatorMessage="Length of the Credit Card must be 16 digits." converterMessage="Only positive integer values are allowed for Credit Card number.">
+                <f:convertNumber integerOnly="true" pattern="################"/>
+               <f:validateLength maximum="16" minimum="16"/>
+               <f:validateRequired/>
+            </h:inputText>
+            <h:message for="cardNumber" style="color:red;"/>
             
             Expiry Date
-            <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}">
+            <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="10" label="Expiry Date" converterMessage="Date should be in MM/dd/yyyy format">
+                <f:convertDateTime pattern="MM/dd/yyyy"/>
             </h:inputText>
-            <h:message for="popup"/>
+            <h:message for="popup" style="color:red;"/>
             
             Security Code
-            <h:inputSecret id="secuCode" value="#{purchaseOrderMB.cardInfo.securityCode}" maxlength="3"></h:inputSecret>
-            <h:message for="secuCode"/>
+            <h:inputSecret id="secuCode" value="#{purchaseOrderMB.cardInfo.securityCode}" maxlength="3" label="Security Code" validatorMessage="Length of the Security code must be 3">
+                <f:validateLength maximum="3" minimum="3"/>
+            </h:inputSecret>
+            <h:message for="secuCode" style="color:red;"/>
             
             </h:panelGrid>
             

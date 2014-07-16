@@ -111,7 +111,14 @@ public class UserBean implements Serializable {
 //        userCreditCard.setCardholderName(user.getFirstName() + " " + user.getLastName());
 //        creditcardMBean.saveCreditCardDetail(userCreditCard);
         if (userservice.saveUser(user)) {
-            return "registration_confirmation";
+            
+             if (redirect != null && redirect.length() > 0) {
+                 String redirectPage=redirect;
+                 redirect="address";
+                return redirectPage;
+            } else {
+                return "registration_confirmation";
+            }
         }
         return null;
     }
@@ -131,13 +138,13 @@ public class UserBean implements Serializable {
             if (userrole.getUserCode() == 1) {
                 activeSession.setAttribute("loggedUser", user);
                 userLogged = true;
-                return "admin_home";
+                retURL = "admin_home";
             } //vedor user 
 
             else if (userrole.getUserCode() == 2) {
                 activeSession.setAttribute("loggedUser", user);
                 userLogged = true;
-                return "internalUserHomePage";
+                retURL = "internalUserHomePage";
             } //vedor user
             else if (userrole.getUserCode() == 3) {
                 //check if the vendor company is approved
@@ -151,19 +158,22 @@ public class UserBean implements Serializable {
                 }
 
             } //cusotmer 
-            else if (userrole.getId() == 5) {
-			 userLogged = true;
-                  // activeSession.setAttribute("loggedUser", user);
+            else if (userrole.getUserCode() == 4) {
+                userLogged = true;
+                activeSession.setAttribute("loggedUser", user);
                 retURL = "user_home";
             } else {
                 retURL = "user_home";
             }
+
+            if (redirect != null && redirect.length() > 0) {
+                return redirect;
+            } else {
+                return retURL;
+            }
+
         }
-        if(redirect!=null && redirect.length()>0) {
-            return redirect;
-        } else {
-            return retURL;
-        }
+        return null;
     }
 
     public String registerUser() {

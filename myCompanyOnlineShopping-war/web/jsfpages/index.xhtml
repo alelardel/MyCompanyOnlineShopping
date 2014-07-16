@@ -9,7 +9,7 @@
     <body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
-                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+                <ui:include src="/sections/mycomp/header.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
@@ -31,13 +31,13 @@
                                                                         <img src="#{product.imageURL}" alt="" />
                                                                         <h2>#{product.price}</h2>
                                                                         <p>
-                                                                            <h:form>
+                                                                          
                                                                                 <h:commandLink value="#{product.name}" action="#{productBean.viewProductDetail(product)}"></h:commandLink>
-                                                                            </h:form>
+                                                                         
                                                                         </p>
-                                                                        <h:form>
+                                                                      
                                                                             <h:commandButton value="Add to Cart" styleClass="btn btn-fefault cart" action="#{purchaseOrderMB.addToCart()}"/>
-                                                                        </h:form>
+                                                                      
                                                                     </div>
                                                             </div>
                                                     </div>

@@ -23,7 +23,7 @@
 
                         <div class="container">
                             <div class="table-responsive cart_info">
-                                <h:dataTable headerClass="cart_menu" styleClass="table table-condensed" value="#{shoppingCartMB.shoppingCart.shoppingCartItems}" var="item">
+                                <h:dataTable headerClass="cart_menu" styleClass="table table-condensed" value="#{purchaseOrderMB.shoppingCart.shoppingCartItems}" var="item">
 
                                     <h:column>
                                         <f:facet name="header">Item</f:facet>
@@ -38,24 +38,25 @@
 
                                     <h:column>
                                         <f:facet name="header">Price</f:facet>
-                                            #{item.price}                                
+                                            #{item.product.price}                                
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Quantity</f:facet>
-                                        <h:inputText value="#{item.quantity}" style="width: 60px;"></h:inputText>
+                                        <h:inputText value="#{item.quantity}" style="width: 60px;" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
+                                    <f:validateLongRange minimum="1" maximum="10000"/></h:inputText>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Total</f:facet>
-                                        #{item.price*item.quantity}
+                                        #{item.price}
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Action</f:facet>
-                                        <h:commandLink value="Remove" action="#{shoppingCartMB.removeProduct(item)}"></h:commandLink>
+                                        <h:commandLink value="Remove" action="#{purchaseOrderMB.removeProduct(item)}"></h:commandLink>
                                         /
-                                        <h:commandLink value="Update" action="#{shoppingCartMB.updateProduct(item)}"></h:commandLink>
+                                        <h:commandLink value="Update" action="#{purchaseOrderMB.updateProduct(item)}"></h:commandLink>
                                     </h:column>
 
 
@@ -70,7 +71,7 @@
                                     <li>Shipping Cost <span>Free</span></li>
                                     <li>Total <span>$61</span></li>
                                 </ul>
-                                <h:commandButton class="btn btn-default check_out" value="Proceed to Checkout" action="address"/>
+                                <h:commandButton class="btn btn-default check_out" value="Proceed to Checkout" action="#{purchaseOrderMB.checkout()}"/>
                             </div>
                         </div>
                         <br/><br/><br/>

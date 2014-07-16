@@ -42,6 +42,23 @@ public class UserService {
 
         return saved;
     }
+    
+    /**
+     * Update User Information by Md Mojahidul Islam
+     * 
+     * @param user
+     * @return 
+     */
+       public Users updateUser(Users user) {     
+ 
+        try {
+            user=em.merge(user);
+            return user;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 
     public Users authenticateUser(Users user) {
 

@@ -17,10 +17,9 @@ import com.mycompany.models.ShoppingCart;
 import com.mycompany.models.ShoppingCartItem;
 import com.mycompany.models.Users;
 import com.mycompany.services.AddressService;
-import com.mycompany.services.CardInformationService;
 import com.mycompany.services.ProductService;
+import com.mycompany.services.UserService;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -50,10 +49,13 @@ public class PurchaseOrderMB implements Serializable {
     @EJB
     private CardInformationServiceLocal cardInfoService;
 
-    private CreditCard cardInfo;
+    @EJB
+    private UserService userService;
 
     @EJB
     private AddressService addressService;
+
+    private CreditCard cardInfo;
 
     private BillingAddress billingAddress;
 
@@ -86,6 +88,11 @@ public class PurchaseOrderMB implements Serializable {
     public void init() {
         HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         usr = (Users) activeSession.getAttribute("loggedUser");
+
+        if (usr != null) {
+            billingAddress = usr.getBillingAddress();
+            shippingAddress = usr.getShippingAddress();
+        }
     }
 
     public void addToCart(int productId) {
@@ -139,7 +146,22 @@ public class PurchaseOrderMB implements Serializable {
 
         System.out.println("Cart " + shoppingCart);
 
+        HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        usr = (Users) activeSession.getAttribute("loggedUser");
+
         if (addressService.save(billingAddress) && addressService.save(shippingAddress)) {
+
+            if (usr != null) {
+
+                usr.setBillingAddress(billingAddress);
+                usr.setShippingAddress(shippingAddress);
+
+                usr = userService.updateUser(usr);
+
+                shoppingCart.setUser(usr);
+                shoppingCart = shoppingCartService.addToCart(shoppingCart);
+            }
+
             return "card?faces-redirect=true";
         }
         return "fail?faces-redirect=true";
@@ -153,16 +175,26 @@ public class PurchaseOrderMB implements Serializable {
         
         purchaseOrder=purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
         
-         return "orderDetail?faces-redirect=true";
+        purchaseOrder.getCardInformation().setCardNumber(purchaseOrder.getCardInformation().getCardNumber().substring(12));
+
+        return "orderDetail?faces-redirect=true";
     }
     
     public String checkout(){
         if(usr==null){
             UserBean.setRedirect("address");
-            return "user_login";
-        }else{
+            return "customerLogin";
+        } else {
+            billingAddress = usr.getBillingAddress();
+            shippingAddress = usr.getShippingAddress();
+
             return "address";
         }
+    }
+
+    public String registerForPurchase() {
+        UserBean.setRedirect("customerLogin");
+        return "user_registration";
     }
 
     public CreditCard getCardInfo() {
