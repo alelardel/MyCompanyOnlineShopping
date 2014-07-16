@@ -2,54 +2,32 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-    <title>IGNORED</title>
+        <title>IGNORED</title>
     </h:head>
-    <body>        
+    <body>    
         <ui:composition> 
             <div class="col-sm-3">
-                    <div class="left-sidebar">
-                            <h2>Category</h2>
-                            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Kids</a></h4>
-                                            </div>
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <ui:repeat value="${categoryMB.allCategories}" var="category">
+                            <h:form>
+                                <c:set var="catid" value="#{category.id}"/>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h:form>
+                                            <h4 class="panel-title"><h:commandButton value="#{category.categoryName}" action="#{productBean.searchCategory(catid)}"></h:commandButton></h4>
+                                        </h:form>
                                     </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                                            </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Households</a></h4>
-                                            </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                                            </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                                            </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Bags</a></h4>
-                                            </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                    <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                                            </div>
-                                    </div>
-                            </div><!--/category-products-->					
+                                </div>
+                            </h:form>
+                        </ui:repeat>
                     </div>
+                </div><!--/category-products-->					
             </div>
-        </ui:composition>     
+        </ui:composition>
     </body>
 </html> 

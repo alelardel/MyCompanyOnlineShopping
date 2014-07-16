@@ -35,14 +35,11 @@
                                 <h:inputText value="#{purchaseOrderMB.productQty}" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
                                     <f:validateLongRange minimum="1" maximum="10000"/>
                                 </h:inputText>
-                                CartQty<h:outputText value="#{purchaseOrderMB.noOfItemsInTheCart}" />
 <!--                                <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     
                                 </button>-->
                                 <h:commandButton value="Add to Cart" styleClass="btn btn-fefault cart" action="#{purchaseOrderMB.addToCart(productBean.product.id)}"/>
-                                <h:commandButton value="View Cart" action="cart"/>
-                                <h:commandButton value="Back" action="index"></h:commandButton>
                             </span>
                         </div><!--/product-information-->
                     </div>

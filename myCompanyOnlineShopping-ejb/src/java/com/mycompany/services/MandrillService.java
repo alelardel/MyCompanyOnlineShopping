@@ -82,32 +82,36 @@ public class MandrillService {
     public MandrillTemplatedMessageRequest getMandrillMessageObject(ArrayList<String> toEmailList,
             Users user, String subject) {
         initialize();
-        MandrillTemplatedMessageRequest mandrillTemplatedMessageRequest = new MandrillTemplatedMessageRequest();
-        mandrillTemplatedMessageRequest.setTemplate_name(TEMPLATE_USER_REGISTERED);
-        MandrillMessage message = new MandrillMessage();
-        
-        int size = 1;
-        if(toEmailList!=null){
-            size += toEmailList.size();
-        }
-        MandrillRecipient[] toEmailArray = new MandrillRecipient[size];
-        toEmailArray[0] = new MandrillRecipient("", user.getEmail());
-        
-        if(toEmailList!=null){
-            for(int i=1; i < toEmailList.size(); i++){
-                    toEmailArray[i] = new MandrillRecipient("",toEmailList.get(i));
-            }
-        }
-        message.setTo(toEmailArray);	 
-        message.setSubject(subject);
-        
-        message.setTags(new String[]{TAG_REGISTRATION, TAG_USER_ACCOUNT});
+        if(user!=null && user.getEmail()!=null && user.getEmail().length()>0){
+            MandrillTemplatedMessageRequest mandrillTemplatedMessageRequest = new MandrillTemplatedMessageRequest();
+            mandrillTemplatedMessageRequest.setTemplate_name(TEMPLATE_USER_REGISTERED);
+            MandrillMessage message = new MandrillMessage();
 
-        List<MergeVar> globalMergeVars = new ArrayList<MergeVar>();
-        globalMergeVars.add(new MergeVar("NAME", user.getFirstName()));
-        
-        message.setGlobal_merge_vars(globalMergeVars);
-        mandrillTemplatedMessageRequest.setMessage(message);
-        return mandrillTemplatedMessageRequest;
+            int size = 1;
+            if(toEmailList!=null){
+                size += toEmailList.size();
+            }
+            MandrillRecipient[] toEmailArray = new MandrillRecipient[size];
+            toEmailArray[0] = new MandrillRecipient("", user.getEmail());
+
+            if(toEmailList!=null){
+                for(int i=1; i < toEmailList.size(); i++){
+                        toEmailArray[i] = new MandrillRecipient("",toEmailList.get(i));
+                }
+            }
+            message.setTo(toEmailArray);	 
+            message.setSubject(subject);
+
+            message.setTags(new String[]{TAG_REGISTRATION, TAG_USER_ACCOUNT});
+
+            List<MergeVar> globalMergeVars = new ArrayList<MergeVar>();
+            globalMergeVars.add(new MergeVar("NAME", user.getFirstName()));
+
+            message.setGlobal_merge_vars(globalMergeVars);
+            mandrillTemplatedMessageRequest.setMessage(message);
+            return mandrillTemplatedMessageRequest;
+        } else {
+            return null;
+        }
     }
 }

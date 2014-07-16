@@ -33,7 +33,9 @@ public class UserService {
             saved = true;
             try {
                 MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillMessageObject(null, user, "Welcome to MyCompany.com!");
-                mandrillService.sendTemplatedMessage(mandrillMessage);
+                if(mandrillMessage!=null){
+                    mandrillService.sendTemplatedMessage(mandrillMessage);
+                }
             } catch (RequestFailedException ex) {
                 Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             }

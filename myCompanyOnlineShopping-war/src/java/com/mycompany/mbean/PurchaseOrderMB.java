@@ -82,6 +82,7 @@ public class PurchaseOrderMB implements Serializable {
         billingAddress = new BillingAddress();
         shippingAddress = new ShippingAddress();
         cardInfo = new CreditCard();
+        productQty = 1;
     }
 
     @PostConstruct
@@ -95,7 +96,7 @@ public class PurchaseOrderMB implements Serializable {
         }
     }
 
-    public void addToCart(int productId) {
+    public String addToCart(int productId) {
 
         //TODO: I am adding some demo value about a product
         product = productService.get(productId);
@@ -115,6 +116,8 @@ public class PurchaseOrderMB implements Serializable {
         item.setPrice(productQty * product.getPrice());
         item.setShoppingCart(shoppingCart);
         cartItems.add(item);
+        
+        productQty = 1;
 
         //TODO: Change user with proper user info and Total Price
         shoppingCart = shoppingCartService.addToCart(shoppingCart);
@@ -126,6 +129,7 @@ public class PurchaseOrderMB implements Serializable {
         } else {
             System.out.println("Product add failed");
         }
+        return "cart";
     }
 
     public void removeProduct(ShoppingCartItem item) {

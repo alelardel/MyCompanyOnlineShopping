@@ -27,24 +27,36 @@
             <div class="header-middle"><!--header-middle-->
                     <div class="container">
                             <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                             <div class="logo pull-left">
                                                     <a href="#">
                                                         <h:form>
-                                                            <h:graphicImage library="images" name="home/logo.png"/>
+                                                            <h:commandLink action="index">
+                                                                <h:graphicImage library="images" name="home/logo.png"/>
+                                                            </h:commandLink>
                                                         </h:form>
                                                     </a>
                                             </div>
                                             <div class="btn-group pull-right">
                                             </div>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-3">
+                                            <div class="search_box pull-right">
+                                                <h:form>
+                                                    <h:inputText class="searchbox" value="#{productBean.searchKey}"/>
+                                                    <h:commandButton class="searchbtn" id="searchbtn" value="Search" action="#{productBean.searchProduct()}"/><BR/>
+                                                </h:form>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-6">
                                             <div class="shop-menu pull-right">
                                                 <h:form>
                                                     <ul class="nav navbar-nav">
-                                                        <li><h:commandLink id="loginlink" value="Login |" action="user_login"></h:commandLink></li> 
-                                                        <li><h:commandLink id="register" value="Register |" action="user_registration"></h:commandLink></li>
+                                                        <li><h:commandLink id="hometxt" value="Home" action="index"></h:commandLink></li>
+                                                        <li><h:commandLink id="loginlink" value="Login" action="user_login"></h:commandLink></li> 
+                                                        <li><h:commandLink id="register" value="Register Buyer" action="user_registration"></h:commandLink></li>
                                                         <li><h:commandLink id="vendorreg" value="Register Vendor" action="vendor_registration"></h:commandLink></li>
+                                                         <li><h:commandLink id="viewcart" value="View Cart" action="cart"></h:commandLink></li>
                                                     </ul>
                                                 </h:form>
                                             </div>
@@ -66,13 +78,8 @@
                                             </div>
                                             <div class="mainmenu pull-left">
                                                     <ul class="nav navbar-nav collapse navbar-collapse">
-                                                        <li><a href="#" class="active">Home</a></li>
+<!--                                                        <li><a href="#" class="active">Home</a></li>-->
                                                     </ul>
-                                            </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                            <div class="search_box pull-right">
-                                                    <input type="text" placeholder="Search"/>
                                             </div>
                                     </div>
                             </div>

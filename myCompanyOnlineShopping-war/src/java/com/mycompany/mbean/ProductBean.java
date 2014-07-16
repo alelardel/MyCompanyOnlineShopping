@@ -141,5 +141,17 @@ public class ProductBean implements Serializable {
         
         return null;
     }
+    
+    public String searchCategory(int categoryId) {
+        products = new ArrayList<>();
+        for(Product prod: productService.getAll()) {
+            if(prod !=null && prod.getCategory()!=null){
+                if(prod.getCategory().getId()==categoryId){
+                    products.add(prod);
+                }
+            }
+        }
+        return "user_home";
+    }
 
 }

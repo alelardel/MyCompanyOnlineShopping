@@ -57,7 +57,9 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal{
               try {
                   
                 MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillMessageObject(null, shoppingCart.getUser(), "Thank you for shopping with us.");
-                mandrillService.sendTemplatedMessage(mandrillMessage);
+                if(mandrillMessage!=null) {
+                    mandrillService.sendTemplatedMessage(mandrillMessage);
+                }
             } catch (RequestFailedException ex) {
                 Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             }

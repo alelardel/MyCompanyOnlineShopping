@@ -7,7 +7,8 @@
         <title>User Registration</title>
         <h:outputStylesheet library="css" name="style.css"  /> 
     </h:head>
-    <h:body>
+    <h:body>    
+
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
                 <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
@@ -16,22 +17,29 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                <h:outputText id="addcust" value="Fill the registration form"/>
-                <h:form>
-                    <h:panelGrid columns="2">
-                        <h:outputText id="custfnout" value="First Name: " />
-                        <h:inputText id="custifnin" value="#{userBean.user.firstName}" />
-                        <h:outputText id="custlnout" value="Last Name: "/>
-                        <h:inputText id="custlnin" value="#{userBean.user.lastName}"/>
-                          <h:outputText id="custemailout" value="Email: "/>
-                        <h:inputText id="custadin" value="#{userBean.user.email}"/>
-                        <h:outputText id="custpassout" value="Password: "/>
-                        <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
-                      
-                    </h:panelGrid>
-                    <h:commandButton id="submit" action="#{userBean.addUsers()}" value="Register"/> 
-                    <h:commandButton id="cancel" value="Cancel" immediate="true" type="reset"/>
-                </h:form>
+
+                <div class="col-sm-4">
+                    <div class="signup-form"><!--sign up form-->
+                        <h2>Fill the registration form</h2>
+                        <h:form>
+
+                            <h:panelGrid columns="2">
+
+                                <h:outputText id="vcustifnout" value="First Name: "/>
+                                <h:inputText id="custifnin" value="#{userBean.user.firstName}" />
+                                <h:outputText id="vcustlnout" value="Last Name: "/>
+                                <h:inputText id="custlnin" value="#{userBean.user.lastName}"/>
+                                <h:outputText id="vcustemailout" value="Email: "/>
+                                <h:inputText id="custadin" value="#{userBean.user.email}"/>
+                                <h:outputText id="vcustpassout" value="Password: "/>
+                                <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
+
+                            </h:panelGrid>
+                            <h:commandButton id="submit" styleClass="searchform-button" action="#{userBean.addUsers()}" value="Register"/>
+                        </h:form>
+                        <br/>
+                    </div><!--/sign up form-->
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>
