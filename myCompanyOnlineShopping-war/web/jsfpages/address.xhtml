@@ -51,7 +51,7 @@
             <h:message for="country"/>
             
             Zip
-            <h:inputText id="zip" value="#{purchaseOrderMB.billingAddress.zip}" converterMessage="Zip code must be number only">
+            <h:inputText id="zip" value="#{purchaseOrderMB.billingAddress.zip}" maxlength="5" converterMessage="Zip code must be number only">
                 <f:convertNumber/>
             </h:inputText>
             <h:message for="zip"/>
@@ -90,7 +90,7 @@
             <h:message for="country1"/>
             
             Zip
-            <h:inputText id="zip1" value="#{purchaseOrderMB.shippingAddress.zip}" converterMessage="Zip code must be number only">
+            <h:inputText id="zip1" value="#{purchaseOrderMB.shippingAddress.zip}" maxlength="5" converterMessage="Zip code must be number only">
                 <f:convertNumber/>
             </h:inputText>
             <h:message for="zip1"/>
