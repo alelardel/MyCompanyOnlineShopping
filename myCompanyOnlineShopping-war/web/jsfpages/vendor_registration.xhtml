@@ -15,50 +15,45 @@
             <ui:define name="sidebarLeft">
 <!--                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>-->
             </ui:define>
-         
             <ui:define name="content">
                 <div class="col-sm-4">
                     <div class="signup-form"><!--sign up form-->
-                            <h2>Register as vendor</h2>
-                            <h:form>
-                                    <label>Vendor company details</label>
-                                <h:panelGrid columns="2">
-                                    <h:outputText id="custfnout" value="Company Name: " />
-                                    <h:inputText id="custifnin"  value="#{vendorMBean.vendor.vendorName}" label="" />
-                                    <h:outputText id="custlnout" value="Phone: "/>
-                                    <h:inputText id="custlnin" value="#{vendorMBean.vendor.phone}"/>
-                                    <h:outputText id="custadout" value="Web: "/>
-                                    <h:inputText id="custadin"  value="#{vendorMBean.vendor.website}"/>
-                                    <h:outputText id="custpassout" value="Email "/>
-                                    <h:inputText id="custpassin" value="#{vendorMBean.vendor.email}"/>
-<!--                                <input type="text" placeholder="Company name" />
-                                    <input type="text" placeholder="Company Phone" />
-                                    <input type="text" placeholder="Company Website" />
-                                    <input type="text" placeholder="Company Email" />-->
-                                    <label>Vendor admin details</label>
-                                    <h:outputText id="xlabel" value="."/>
-                                    <h:outputText id="vcustifnout" value="First Name "/>
-                                    <h:inputText id="vcustifnin" value="#{vendorMBean.vuser.firstName}" />
-                        <h:outputText id="vcustlnout" value="Last Name: "/>
-                        <h:inputText id="vcustlnin" value="#{vendorMBean.vuser.lastName}"/>
-                        <h:outputText id="vcustemailout" value="Email: "/>
-                        <h:inputText id="vcustadin" value="#{vendorMBean.vuser.email}"/>
-                        <h:outputText id="vcustpassout" value="Password: "/>
-                        <h:inputSecret id="vcustpassin" value="#{vendorMBean.vuser.password}"/>
-<!--                                    <input type="text" placeholder="First name" />
-                                    <input type="text" placeholder="Last name" />
-                                    <input type="email" placeholder="Email" />
-                                    <input type="password" placeholder="Password" />-->
-                                    </h:panelGrid>
-<!--                                    <button type="submit" class="btn btn-default">Register</button>-->
-                                    <h:commandButton id="submit" styleClass="searchform-button" action="#{vendorMBean.sendVendorRequest()}" value="Register"/> 
-                                <h:commandButton id="cancel" class="btn btn-default" value="Cancel" immediate="true" type="reset"/>
-<!--                                    <button type="submit" class="btn btn-default">Register</button>-->
-                            </h:form>
-                            <br/>
-                    </div><!--/sign up form-->
-            </div>
-             
+                        <h2>Register as vendor</h2>
+                        <h:form>
+                            <label>Vendor company details</label>
+                            <h:panelGrid columns="2">
+                                <h:outputText id="custfnout" value="Company Name: " />
+                                <h:inputText id="custifnin"  value="#{vendorMBean.vendor.vendorName}" label="" />
+                                
+                                <h:outputText id="custlnout" value="Phone: "/>
+                                <h:inputText id="custlnin" value="#{vendorMBean.vendor.phone}"/>
+                                
+                                <h:outputText id="custadout" value="Web: "/>
+                                <h:inputText id="custadin"  value="#{vendorMBean.vendor.website}"/>
+                                
+                                <h:outputText id="custpassout" value="Email "/>
+                                <h:inputText id="custpassin" value="#{vendorMBean.vendor.email}"/>
+                                
+                                <label>Vendor admin details</label>
+                                <h:outputText id="xlabel" value="."/>
+                                
+                                <h:outputText id="vcustifnout" value="First Name "/>
+                                <h:inputText id="vcustifnin" value="#{vendorMBean.vuser.firstName}" />
+                                
+                                <h:outputText id="vcustlnout" value="Last Name: "/>
+                                <h:inputText id="vcustlnin" value="#{vendorMBean.vuser.lastName}"/>
+                                
+                                <h:outputText id="vcustemailout" value="Email: "/>
+                                <h:inputText id="vcustadin" value="#{vendorMBean.vuser.email}"/>
+                                
+                                <h:outputText id="vcustpassout" value="Password: "/>
+                                <h:inputSecret id="vcustpassin" value="#{vendorMBean.vuser.password}"/>
+                            <h:commandButton id="submit" styleClass="searchform-button" action="#{vendorMBean.sendVendorRequest()}" value="Register"/> 
+                            <h:commandButton id="cancel" class="btn btn-default" value="Cancel" immediate="true" type="reset"/>
+                        </h:form>
+                        <br/>
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>
