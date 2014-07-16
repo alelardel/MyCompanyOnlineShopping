@@ -13,6 +13,7 @@ import com.mycompany.models.CreditCard;
 import com.mycompany.models.PurchaseOrder;
 import com.mycompany.models.ShippingAddress;
 import com.mycompany.models.ShoppingCart;
+import com.mycompany.models.Users;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
