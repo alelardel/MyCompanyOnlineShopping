@@ -14,7 +14,10 @@ import com.mycompany.models.PurchaseOrder;
 import com.mycompany.models.ShippingAddress;
 import com.mycompany.models.ShoppingCart;
 import com.mycompany.models.Users;
+import com.mycompany.services.myfiance.MyFinanceService;
+import com.mycompany.services.myfiance.OrderTransaction;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -31,6 +34,9 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
 
     @PersistenceContext
     private EntityManager em;
+    
+    @EJB
+    MyFinanceService client;
 
     @EJB
     MandrillService mandrillService;
@@ -64,6 +70,14 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
                 Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        em.flush();
+        
+        //Update MyFinance.com
+        OrderTransaction orderTransaction = new OrderTransaction();
+        orderTransaction.setOrderID(order.getId());
+        orderTransaction.setTransactionDate(new Date());
+        client.create_JSON(orderTransaction);
 
         return order;
     }

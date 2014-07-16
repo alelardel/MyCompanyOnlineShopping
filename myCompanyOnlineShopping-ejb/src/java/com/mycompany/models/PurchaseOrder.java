@@ -9,6 +9,7 @@ package com.mycompany.models;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class PurchaseOrder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -49,6 +51,11 @@ public class PurchaseOrder implements Serializable {
     //@OneToMany(mappedBy = "orders")
     @ManyToOne
     private Users user;
+
+    public PurchaseOrder() {
+    }
+    
+    
     
     public int getId() {
         return id;
