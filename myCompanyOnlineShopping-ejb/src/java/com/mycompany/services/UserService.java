@@ -24,7 +24,7 @@ public class UserService {
 
     @PersistenceContext
     private EntityManager em;
-
+    
     @EJB
     MandrillService mandrillService;
 

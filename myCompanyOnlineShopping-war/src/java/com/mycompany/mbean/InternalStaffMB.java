@@ -13,7 +13,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * 
+ * Creates internal user with userName and passWord
+ * @version 1.0.0
+ * @return newly created internal user
  * @author TalakB
  */
 @Named
@@ -45,7 +48,12 @@ public class InternalStaffMB implements Serializable {
     public void setInternaluser(InternalUser internaluser) {
         this.internaluser = internaluser;
     }
-
+    
+    /**
+     * Adds internal users(staff)
+     * @return to the add internal user confirmation home page
+     * @throws Exception 
+     */
     public String addInternalStaff() throws Exception {
         String internalUserPass = internaluser.getPassword();
         String encPass = encpass.encrypt(internalUserPass);

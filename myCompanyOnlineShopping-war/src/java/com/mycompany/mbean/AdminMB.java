@@ -8,8 +8,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
+ * Manages the admin action 
+ * approves the vendors, creates the internal users(staff users) and adds Product category
+ * @returns category, internal users, vendor acceptance
+ * @version 1.0.0
  * @author TalakB
+ * 
  */
 @Named
 @SessionScoped
@@ -32,8 +36,7 @@ public class AdminMB implements Serializable {
     }
 
     /**
-     * Staff users can be created only by admin.
-     *
+     * Staff users can be created only by admin. 
      * @return
      */
     public String addStaffUser() {
@@ -41,18 +44,24 @@ public class AdminMB implements Serializable {
     }
 
     /**
-     * Add product category
-     *
-     * @return
+     * Displays vendor request
+     *@return to the admin vendor approval home page
      */
     public String showVendorRequest() {
         return "adminVendorRequestApproval";
     }
-
+    /**
+     * Add product category
+     * @return to the admin add category home page 
+     */
     public String addCategory() {
         return "adminAddcategory";
     }
-
+    /**
+     * Saves the newly created category
+     * @return to the admin home page
+     * @throws Exception 
+     */
     public String saveCategory() throws Exception {
 
         if (adminservice.persistCustomer(category)) {

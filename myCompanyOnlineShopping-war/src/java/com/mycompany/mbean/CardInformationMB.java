@@ -13,8 +13,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
+ * Manages the credit card information action of a particular user
+ * Saves the credit card information 
+ * @return card information 
+ * @version 1.0.0
  * @author Md Mojahidul Islam
+ * 
  */
 @Named(value = "cardInformationMB")
 @SessionScoped
@@ -28,7 +32,10 @@ public class CardInformationMB implements Serializable {
     public CardInformationMB() {
         cardInfo = new CreditCard();
     }
-
+    /**
+     * Saves the card information
+     * @return to the order detail home page 
+     */
     public String save() {
         
         cardInfo=cardInfoService.save(cardInfo);

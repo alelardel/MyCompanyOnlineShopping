@@ -20,8 +20,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author james
+ * A bean (CDI) for product related tasks.
+ * @author Va Yim
+ * @version 1.0.0
+ * @return 
  */
 @Named
 @SessionScoped
@@ -87,6 +89,12 @@ public class ProductBean implements Serializable {
         this.products = products;
     }
 
+    /**
+     * 
+     * Add the product
+     * @return user home page
+     * @throws Exception 
+     */
     public String addProduct() throws Exception {
         VendorUser user = (VendorUser) usersmbean.getLoggedInUser();
         vendor = user.getVendor();
@@ -96,7 +104,11 @@ public class ProductBean implements Serializable {
         productService.saveProduct(product);
         return "user_home";
     }
-
+    /**
+     * Finds all products
+     * @return to the product list home page
+     * @throws Exception 
+     */
     public String listProduct() throws Exception {
         products = new ArrayList<>();
         List<Product> result = productService.findAll();
@@ -115,11 +127,18 @@ public class ProductBean implements Serializable {
     public String addProductPage() {
         return "product_add";
     }
-
+    /**
+     * Updates the value 
+     * @param v 
+     */
     public void valueChanged(ValueChangeEvent v) {
         categoryName = (String) v.getNewValue();
     }
-
+    /**
+     * Displays the detailed product information
+     * @param productIn
+     * @return  to product detail home page
+     */
     public String viewProductDetail(Product productIn) {
         product = productIn;
         if (product != null) {
@@ -130,10 +149,10 @@ public class ProductBean implements Serializable {
     }
 
     /**
+     * 
      * add product to shipping cart
-     *
      * @param product
-     * @return
+     * @return to shopping cart information home page
      */
     public String addToCart(Product product) {
         //set all shipping cart related info here
@@ -143,8 +162,7 @@ public class ProductBean implements Serializable {
 
     /**
      * Search product by name
-     *
-     * @return
+     * @return to user home page
      */
     public String searchProduct() {
         products = new ArrayList<>();
@@ -160,7 +178,12 @@ public class ProductBean implements Serializable {
         }
         return "index";
     }
-    
+    /**
+     * 
+     * Searches the product by category 
+     * @param categoryId
+     * @return similar products to the user home page
+     */
     public String searchCategory(int categoryId) {
         products = new ArrayList<>();
         List<Product> result = productService.findAll();

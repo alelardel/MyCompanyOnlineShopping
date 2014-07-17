@@ -20,7 +20,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Vendor related tasks
+ * @version 1.0.0
  * @author TalakB
  */
 @Named
@@ -114,7 +115,7 @@ public class VendorMBean implements Serializable {
      * Approve vendors
      *
      * @param vendor
-     * @return
+     * @return to admin home page
      */
     public String approveVendor(Vendor vendor) {
         boolean approved = false;
@@ -133,7 +134,12 @@ public class VendorMBean implements Serializable {
     
     
     
-
+    /**
+     * Checks the whether the email is registered or not
+     * @param fc
+     * @param c
+     * @param value 
+     */
     public void checkEmail(FacesContext fc, UIComponent c, Object value) {
 
         String email = (String) value;

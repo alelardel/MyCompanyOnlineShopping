@@ -29,7 +29,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * User related task
+ * @version 1.0.0
  * @author TalakB User bean
  */
 @Named
@@ -129,7 +130,11 @@ public class UserBean implements Serializable {
         }
         return null;
     }
-
+    /**
+     * Login registered users
+     * @return to user login home page
+     * @throws Exception 
+     */
     public String loginUser() throws Exception {
         System.out.println("redi = "+ redirect);
         
@@ -187,7 +192,12 @@ public class UserBean implements Serializable {
         user = new Users();
         return "user_registration";
     }
-
+    /**
+     * User encryption
+     * @param password
+     * @return
+     * @throws Exception 
+     */
     public String encryptUserPassword(String password) throws Exception {
         String encrptedPass = encpass.encrypt(user.getPassword());
         return encrptedPass;
@@ -195,8 +205,7 @@ public class UserBean implements Serializable {
 
     /**
      * Logout user -Invalidate the session and redirect to home page
-     *
-     * @return
+     * @return to home page
      */
     public String logoutUser() {
         activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -233,7 +242,7 @@ public class UserBean implements Serializable {
     /**
      * Check if the user is logged in and what role is he assigned to restrict
      * pages.
-     *
+     * @return 
      * @param event
      */
     public void isAdminUser(ComponentSystemEvent event) {
@@ -255,7 +264,7 @@ public class UserBean implements Serializable {
 
     /**
      * pages that are allowed only for vendor users
-     *
+     * @return to index home page
      * @param event
      */
     public void isVendorUser(ComponentSystemEvent event) {

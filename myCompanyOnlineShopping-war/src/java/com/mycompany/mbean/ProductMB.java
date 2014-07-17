@@ -13,7 +13,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- *
+ * 
+ * Searching the product
+ * @return product
+ * @version 1.0.0
  * @author Va Y.
  */
 @Named(value = "productMB")
@@ -36,14 +39,21 @@ public class ProductMB {
     private void init(){
         productList = productService.getAll();
     }
-    
+    /**
+     * 
+     * @return null
+     */
     public String listProduct() {
         productList = productService.getAll();
         
         
         return null;
     }
-    
+    /**
+     * Searches product by ID
+     * @param id
+     * @return  product to product home page
+     */
     public String findProduct(int id) {
 
         product = productService.get(id);
@@ -55,7 +65,10 @@ public class ProductMB {
     public List<Product> getProductList() {
         return productList;
     }
-
+    /**
+     * 
+     * @return product
+     */
     public Product getProduct() {
         return product;
     }

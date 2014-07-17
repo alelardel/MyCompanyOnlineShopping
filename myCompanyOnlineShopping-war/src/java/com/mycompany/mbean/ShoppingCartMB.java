@@ -58,7 +58,10 @@ public class ShoppingCartMB implements Serializable {
         HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
          usr= (Users) activeSession.getAttribute("loggedUser");
     }
-
+    /**
+     * Add products to cart
+     * @param productId 
+     */
     public void addToCart(int productId) {
 
         //TODO: I am adding some demo value about a product
@@ -91,11 +94,17 @@ public class ShoppingCartMB implements Serializable {
             System.out.println("Product add failed");
         }
     }
-    
+    /**
+     * remove product
+     * @param item 
+     */
     public void removeProduct(ShoppingCartItem item){
         shoppingCart=shoppingCartService.removeFromCart(shoppingCart, item);
     }
-    
+    /**
+     * Update the shopping cart
+     * @param item 
+     */
     public void updateProduct(ShoppingCartItem item){
         
         for(ShoppingCartItem cartItem:shoppingCart.getShoppingCartItems()){

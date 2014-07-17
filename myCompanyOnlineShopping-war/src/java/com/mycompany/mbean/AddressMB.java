@@ -13,10 +13,11 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
 /**
- *
- * @author Md Mojahidul Islam
+ * Manages the user action related to address
+ * Version 1.0.0
+ * @return  the shipping and billing addresses of the user
+ * 
  */
 @Named(value = "addressMB")
 @SessionScoped

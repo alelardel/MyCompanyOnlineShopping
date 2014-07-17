@@ -30,7 +30,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * 
+ * Placing an order
+ * @version 1.0.0
  * @author Md Mojahidul Islam
  */
 @Named(value = "purchaseOrderMB")
@@ -76,7 +78,10 @@ public class PurchaseOrderMB implements Serializable {
     private Users usr=null;
     
     private String redirect;
-
+    
+    /**
+     * constructor
+     */
     public PurchaseOrderMB() {
         purchaseOrder = new PurchaseOrder();
         billingAddress = new BillingAddress();
@@ -84,7 +89,10 @@ public class PurchaseOrderMB implements Serializable {
         cardInfo = new CreditCard();
         productQty = 1;
     }
-
+    
+    /**
+     * Refreshes the session
+     */
     public void refresh() {
         HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         usr = (Users) activeSession.getAttribute("loggedUser");
@@ -146,12 +154,19 @@ public class PurchaseOrderMB implements Serializable {
         updateShoppingCartTotalCost();
         return "cart";
     }
-
+    /**
+     * 
+     * removes the product from the cart
+     * @param item 
+     */
     public void removeProduct(ShoppingCartItem item) {
         shoppingCart = shoppingCartService.removeFromCart(shoppingCart, item);
         updateShoppingCartTotalCost();
     }
-
+    /**
+     * Updating the cart
+     * @param item 
+     */
     public void updateProduct(ShoppingCartItem item) {
 
         for (ShoppingCartItem cartItem : shoppingCart.getShoppingCartItems()) {
@@ -162,7 +177,10 @@ public class PurchaseOrderMB implements Serializable {
         shoppingCart = shoppingCartService.addToCart(shoppingCart);
         updateShoppingCartTotalCost();
     }
-
+    /**
+     * Save both shipping and billing addresses 
+     * @return user shopping cart home page
+     */
     public String saveAddress() {
 
         System.out.println("Cart " + shoppingCart);
@@ -187,7 +205,11 @@ public class PurchaseOrderMB implements Serializable {
         }
         return "fail?faces-redirect=true";
     }
-
+    /**
+     * 
+     * Saves the credit card information
+     * @return to order home page
+     */
     public String saveCardInformation() {
         
         cardInfo=cardInfoService.save(cardInfo);
@@ -212,7 +234,10 @@ public class PurchaseOrderMB implements Serializable {
             return "address";
         }
     }
-
+    /**
+     * 
+     * @return to user registration home page
+     */
     public String registerForPurchase() {
         UserBean.setRedirect("customerLogin");
         return "user_registration";

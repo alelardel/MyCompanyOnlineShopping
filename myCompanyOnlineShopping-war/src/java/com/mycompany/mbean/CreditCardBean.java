@@ -10,7 +10,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
+ * Generates dummy credit card which is checked in payment gateway
+ * Version 1.0.0
+ * @return Ccredit card
  * @author TalakB
  */
 @Named
@@ -32,7 +34,11 @@ public class CreditCardBean implements Serializable {
     public void setUserCreditCard(CreditCard userCreditCard) {
         this.userCreditCard = userCreditCard;
     }
-
+    /**
+     * Saves all credit card information
+     * @param creaditcard
+     * @throws Exception 
+     */
     public void saveCreditCardDetail(CreditCard creaditcard) throws Exception {
         creaditcard.setCardNumber(generateCreditCardNo());
         creaditcard.setSecurityCode(generateSecurityCode());
@@ -46,9 +52,9 @@ public class CreditCardBean implements Serializable {
     }
 
     /**
-     * Generate 16 digit credit card no.
-     *
-     * @return
+     * 
+     * Generate 16 digit credit card no
+     * @return 16 digit credit card no 
      */
     public String generateCreditCardNo() {
         Random rand = new Random();
@@ -63,15 +69,19 @@ public class CreditCardBean implements Serializable {
 
     /**
      * generate 3 digit security code
-     *
-     * @return
+     * @return 3 digit no
      */
     public String generateSecurityCode() {
         Random rand = new Random();
         int randomSecCode = rand.nextInt(999) + 100;
         return String.valueOf(randomSecCode);
     }
-    
+    /**
+     * 
+     * @param password
+     * @return encrpted security code
+     * @throws Exception 
+     */
        public String encryptSecurityCode(String password) throws Exception {
         String encrptedSecCode = encpass.encrypt(password);
         return encrptedSecCode;

@@ -10,7 +10,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- *
+ * @optional
+ * Version 1.0.0
  * @author Va Y.
  */
 @Named(value = "myFinancedotcomMB")

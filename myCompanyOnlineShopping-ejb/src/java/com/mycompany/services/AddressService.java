@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
  * @author Md Mojahidul Islam
  * @version 1.0.0
  */
-
 @Stateless
 public class AddressService {
 

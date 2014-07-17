@@ -10,7 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- *
+ * version 1.0.0
  * @author Va Y.
  */
 @Named(value = "paymentGatewayMB")
