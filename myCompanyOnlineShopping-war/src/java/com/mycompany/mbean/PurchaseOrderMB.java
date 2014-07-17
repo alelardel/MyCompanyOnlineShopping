@@ -221,11 +221,24 @@ public class PurchaseOrderMB implements Serializable {
      * @return to order home page
      */
     public String saveCardInformation() {
-
-        cardInfo = cardInfoService.save(cardInfo);
-
-        purchaseOrder = purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
-
+        
+        
+        //cardInfo=cardInfoService.save(cardInfo);
+        
+        double amount = 0;
+        
+        for (ShoppingCartItem item: shoppingCart.getShoppingCartItems()) {
+            amount += item.getPrice();
+        }
+        
+        cardInfo = cardInfoService.validateSave(cardInfo, amount);
+        
+        if (cardInfo == null) return "creditcardInvalid?faces-redirect=true";
+        
+        
+        
+        purchaseOrder=purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
+        
         purchaseOrder.getCardInformation().setCardNumber(purchaseOrder.getCardInformation().getCardNumber().substring(12));
 
         return "orderDetail?faces-redirect=true";

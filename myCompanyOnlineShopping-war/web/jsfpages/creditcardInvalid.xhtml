@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body>
+         <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+            </ui:define>
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
+        <h:form>
+            
+            <h2>Credit Card invalid</h2>
+            
+            Credit card information is not valid or Credit limit is not enough to purchase.<br/>
+            Please verify the information.<br/>
+            Thanks you for using our services.
+            
+            
+        </h:form>
+         </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

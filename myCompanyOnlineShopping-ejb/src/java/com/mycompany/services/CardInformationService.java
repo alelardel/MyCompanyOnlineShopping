@@ -22,15 +22,15 @@ public class CardInformationService implements CardInformationServiceLocal {
     @PersistenceContext
     private EntityManager em;
     
-//    @EJB
-//    private PaymentGatewayService client;
+    @EJB
+    private PaymentGatewayService client;
 /**
  * This method saves credit card information into database
  * 
  * @param cardInfo
  * @return 
  */
-    @Interceptors(PaymentGatewayListener.class)
+    //@Interceptors(PaymentGatewayListener.class)
     @Override
     public CreditCard save(CreditCard cardInfo) {
 
@@ -39,5 +39,23 @@ public class CardInformationService implements CardInformationServiceLocal {
         cardInfo=em.merge(cardInfo);
            
         return cardInfo;
+    }
+    
+
+    @Override
+    public CreditCard validateSave(CreditCard cardInfo, double amount) {
+        //validate creditcard
+        
+        boolean isValid = client.validate(boolean.class, cardInfo.getCardNumber() , cardInfo.getCardholderName(),
+                cardInfo.getExpiryDate().replace("/", ""), cardInfo.getSecurityCode(), String.valueOf(amount));
+        
+        if  (isValid) {
+            
+            //cardInfo = em.merge(cardInfo);
+            em.persist(cardInfo);
+           
+            return cardInfo;
+            
+        } else return null;
     }
 }

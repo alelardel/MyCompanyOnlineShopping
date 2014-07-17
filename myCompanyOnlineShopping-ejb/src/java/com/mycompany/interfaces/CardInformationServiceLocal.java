@@ -17,5 +17,6 @@ import javax.ejb.Local;
 public interface CardInformationServiceLocal {
 
     CreditCard save(CreditCard cardInfo);
+    CreditCard validateSave(CreditCard cardInfo, double amount);
     
 }

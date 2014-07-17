@@ -1,5 +1,6 @@
 package com.mycompany.services;
 
+import com.mycompany.services.paymentgateway.PaymentGatewayListener;
 import com.mandrill.clients.exception.RequestFailedException;
 import com.mandrill.clients.model.MandrillTemplatedMessageRequest;
 import com.mycompany.models.Role;
@@ -9,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -34,6 +36,7 @@ public class UserService {
      * @param user
      * @return saved
      */
+    @Interceptors(PaymentGatewayListener.class)
     public boolean saveUser(Users user) {
         boolean saved = false;
         try {
