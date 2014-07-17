@@ -20,45 +20,74 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+
 /**
- * This service class is responsible for persisting order info and finding order by id.
- * 
+ * This service class is responsible for persisting order info and finding order
+ * by id.
+ *
  * @author Md Mojahidul Islam
  * @version 1.0.0
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class PurchaseOrderService implements PurchaseOrderServiceLocal {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @EJB
     MyFinanceService client;
 
     @EJB
     MandrillService mandrillService;
-    /**
-     * This method gives order by id
-     * @param id
-     * @return 
-     */
+
+    @Resource
+    UserTransaction utx;
 
     @Override
     public PurchaseOrder findById(int id) {
         return em.find(PurchaseOrder.class, id);
     }
-    /**
-     * This method saves order info into database 
-     * @param shoppingCart
-     * @param billingAddress
-     * @param shippingAddress
-     * @param creditCard
-     * @return order
-     */
+
+    private PurchaseOrder savePurchaseOrder(PurchaseOrder order) {
+
+        try {
+            utx.begin();
+            PurchaseOrder porder = em.merge(order);
+            try {
+                utx.commit();
+            } catch (RollbackException ex) {
+                Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (HeuristicMixedException ex) {
+                Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (HeuristicRollbackException ex) {
+                Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return porder;
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(PurchaseOrderService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public PurchaseOrder saveOrder(ShoppingCart shoppingCart, BillingAddress billingAddress, ShippingAddress shippingAddress, CreditCard creditCard) {
@@ -71,22 +100,22 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
         order.setCardInformation(creditCard);
         order.setShoppingCart(shoppingCart);
 
-        order = em.merge(order);
+        // order = em.merge(order);
+        order = savePurchaseOrder(order);
 
         if (shoppingCart.getUser() != null) {
             try {
 
-                MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillMessageObject(null, shoppingCart.getUser(), "Thank you for shopping with us.");
-                if(mandrillMessage!=null) {
+                MandrillTemplatedMessageRequest mandrillMessage = mandrillService.getMandrillOrderMessageObject(null, order, "Thank you for shopping with us.");
+                if (mandrillMessage != null) {
                     mandrillService.sendTemplatedMessage(mandrillMessage);
                 }
             } catch (RequestFailedException ex) {
                 Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        em.flush();
-        
+
+        //em.flush();
         //Update MyFinance.com
         OrderTransaction orderTransaction = new OrderTransaction();
         orderTransaction.setOrderID(order.getId());

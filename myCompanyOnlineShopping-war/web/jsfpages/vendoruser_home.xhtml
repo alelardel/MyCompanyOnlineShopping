@@ -8,7 +8,6 @@
    
     <h:head>
     </h:head>
-    <f:event listener="#{userBean.isVendorUser}" type="preRenderView" />
     <h:body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
@@ -18,9 +17,7 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                <h:form>
-                    <h:commandLink id="listprodlink" value="Add product" action="product_add"></h:commandLink>
-                </h:form>
+                
             </ui:define>
         </ui:composition>
     </h:body>

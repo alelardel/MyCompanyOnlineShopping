@@ -30,8 +30,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 /**
- * 
+ *
  * Placing an order
+ *
  * @version 1.0.0
  * @author Md Mojahidul Islam
  */
@@ -75,10 +76,10 @@ public class PurchaseOrderMB implements Serializable {
 
     private int noOfItemsInTheCart;
 
-    private Users usr=null;
-    
+    private Users usr = null;
+
     private String redirect;
-    
+
     /**
      * constructor
      */
@@ -89,7 +90,7 @@ public class PurchaseOrderMB implements Serializable {
         cardInfo = new CreditCard();
         productQty = 1;
     }
-    
+
     /**
      * Refreshes the session
      */
@@ -98,21 +99,21 @@ public class PurchaseOrderMB implements Serializable {
         usr = (Users) activeSession.getAttribute("loggedUser");
 
         if (usr != null) {
-            if(usr.getBillingAddress()==null) {
+            if (usr.getBillingAddress() == null) {
                 usr.setBillingAddress(new BillingAddress());
             }
             billingAddress = usr.getBillingAddress();
-            
-            if(usr.getShippingAddress()==null) {
-                usr.setShoppingCart(new ShoppingCart());
+
+            if (usr.getShippingAddress() == null) {
+                usr.setShippingAddress(new ShippingAddress());
             }
             shippingAddress = usr.getShippingAddress();
         }
     }
 
-    private void updateShoppingCartTotalCost(){
+    private void updateShoppingCartTotalCost() {
         double total = 0;
-        for(ShoppingCartItem shoppingCartItem: shoppingCart.getShoppingCartItems()) {
+        for (ShoppingCartItem shoppingCartItem : shoppingCart.getShoppingCartItems()) {
             total += shoppingCartItem.getPrice() * shoppingCartItem.getQuantity();
         }
         shoppingCart.setTotalPrice(total);
@@ -138,7 +139,7 @@ public class PurchaseOrderMB implements Serializable {
         item.setPrice(productQty * product.getPrice());
         item.setShoppingCart(shoppingCart);
         cartItems.add(item);
-        
+
         productQty = 1;
 
         //TODO: Change user with proper user info and Total Price
@@ -154,18 +155,22 @@ public class PurchaseOrderMB implements Serializable {
         updateShoppingCartTotalCost();
         return "cart";
     }
+
     /**
-     * 
+     *
      * removes the product from the cart
-     * @param item 
+     *
+     * @param item
      */
     public void removeProduct(ShoppingCartItem item) {
         shoppingCart = shoppingCartService.removeFromCart(shoppingCart, item);
         updateShoppingCartTotalCost();
     }
+
     /**
      * Updating the cart
-     * @param item 
+     *
+     * @param item
      */
     public void updateProduct(ShoppingCartItem item) {
 
@@ -177,8 +182,10 @@ public class PurchaseOrderMB implements Serializable {
         shoppingCart = shoppingCartService.addToCart(shoppingCart);
         updateShoppingCartTotalCost();
     }
+
     /**
-     * Save both shipping and billing addresses 
+     * Save both shipping and billing addresses
+     *
      * @return user shopping cart home page
      */
     public String saveAddress() {
@@ -205,26 +212,26 @@ public class PurchaseOrderMB implements Serializable {
         }
         return "fail?faces-redirect=true";
     }
+
     /**
-     * 
+     *
      * Saves the credit card information
+     *
      * @return to order home page
      */
     public String saveCardInformation() {
-        
-        cardInfo=cardInfoService.save(cardInfo);
-        
-        
-        
-        purchaseOrder=purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
-        
+
+        cardInfo = cardInfoService.save(cardInfo);
+
+        purchaseOrder = purchaseOrderService.saveOrder(shoppingCart, billingAddress, shippingAddress, cardInfo);
+
         purchaseOrder.getCardInformation().setCardNumber(purchaseOrder.getCardInformation().getCardNumber().substring(12));
 
         return "orderDetail?faces-redirect=true";
     }
-    
-    public String checkout(){
-        if(usr==null){
+
+    public String checkout() {
+        if (usr == null) {
             UserBean.setRedirect("address");
             return "customerLogin";
         } else {
@@ -234,8 +241,9 @@ public class PurchaseOrderMB implements Serializable {
             return "address";
         }
     }
+
     /**
-     * 
+     *
      * @return to user registration home page
      */
     public String registerForPurchase() {

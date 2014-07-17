@@ -6,10 +6,13 @@
 package com.mycompany.mbean.reportmbeans;
 
 import com.mycompany.interfaces.PurchaseOrderServiceLocal;
+import com.mycompany.interfaces.ReportServiceLocal;
 import com.mycompany.models.PurchaseOrder;
 import com.mycompany.models.ShoppingCartItem;
+import com.mycompany.models.helper.MyReport;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +60,11 @@ public class InvoiceMB implements Serializable {
         Map<String, Object> param = new HashMap<String, Object>();
 
         param.put("invoiceNumber", String.valueOf(order.getId()));
-        param.put("customerName", order.getUser().getFirstName() + order.getUser().getLastName());
+        param.put("customerName", order.getUser().getFirstName() + " " + order.getUser().getLastName());
+
+        String bdate = new SimpleDateFormat("MM/dd/yyyy").format(order.getBuyingDate().getTime());
+
+        param.put("buyDate", bdate);
 
         List<ShoppingCartItem> items = order.getShoppingCart().getShoppingCartItems();
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(items);

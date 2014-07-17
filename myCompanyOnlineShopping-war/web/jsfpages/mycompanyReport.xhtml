@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
+    <h:head>
+      <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body>
+         <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="heading">
+                <ui:include src="/sections/mycomp/header.xhtml"/>
+            </ui:define>
+            <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
+        <h:form>
+            
+          
+            <h3>Top Selling Products</h3>
+            <h:panelGrid columns="10">
+                
+                From Date
+                <h:inputText id="fromDate" value="#{reportMB.fromDate}" label="From Date" validatorMessage="From Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="fromDate" style="color: red"/>
+                
+                To Date
+                <h:inputText id="toDate" value="#{reportMB.toDate}" label="To Date" validatorMessage="To Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="toDate" style="color: red"/>
+                
+                No of Result
+                <h:inputText id="limit" value="#{reportMB.noOfResult}" style="width: 70px;" converterMessage="Only Integer allowed">
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+                <h:message for="limit" style="color: red"/>
+                
+                <h:commandButton action="#{reportMB.generateTop()}" value="Top Selling Products"/>
+            </h:panelGrid>
+            
+        </h:form>
+                
+                <h:form>
+            
+            <h3>Least Selling Products</h3>
+            <h:panelGrid columns="10">
+                
+                From Date
+                <h:inputText id="lFromDate" value="#{reportMB.fromDate}" label="From Date" validatorMessage="From Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lFromDate" style="color: red"/>
+                
+                To Date
+                <h:inputText id="lToDate" value="#{reportMB.toDate}" label="To Date" validatorMessage="To Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lToDate" style="color: red"/>
+                
+                No of Result
+                <h:inputText id="lLimit" value="#{reportMB.noOfResult}" style="width: 70px;" converterMessage="Only Integer allowed">
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+                <h:message for="lLimit" style="color: red"/>
+                
+                <h:commandButton action="#{reportMB.generateLeast()}" value="Least Selling Products"/>
+            </h:panelGrid>
+            
+        </h:form>
+                
+                 <h:form>
+            
+            <h3>Top Selling Vendors</h3>
+            <h:panelGrid columns="10">
+                
+                From Date
+                <h:inputText id="lFromDate" value="#{reportMB.fromDate}" label="From Date" validatorMessage="From Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lFromDate" style="color: red"/>
+                
+                To Date
+                <h:inputText id="lToDate" value="#{reportMB.toDate}" label="To Date" validatorMessage="To Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lToDate" style="color: red"/>
+                
+                No of Result
+                <h:inputText id="lLimit" value="#{reportMB.noOfResult}" style="width: 70px;" converterMessage="Only Integer allowed">
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+                <h:message for="lLimit" style="color: red"/>
+                
+                <h:commandButton action="#{reportMB.generateBestVendor()}" value="Top Selling Vendors"/>
+            </h:panelGrid>
+            
+        </h:form>
+                
+                       <h:form>
+            
+            <h3>Least Selling Vendors</h3>
+            <h:panelGrid columns="10">
+                
+                From Date
+                <h:inputText id="lFromDate" value="#{reportMB.fromDate}" label="From Date" validatorMessage="From Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lFromDate" style="color: red"/>
+                
+                To Date
+                <h:inputText id="lToDate" value="#{reportMB.toDate}" label="To Date" validatorMessage="To Date can't be empty" converterMessage="Date format must be MM/dd/yyyy" maxlength="10" style="width: 100px;"> 
+                    <f:validateRequired/>
+                    <f:convertDateTime pattern="MM/dd/yyyy" locale="en_US" timeZone="UTC"/>
+                </h:inputText>
+                <h:message for="lToDate" style="color: red"/>
+                
+                No of Result
+                <h:inputText id="lLimit" value="#{reportMB.noOfResult}" style="width: 70px;" converterMessage="Only Integer allowed">
+                    <f:convertNumber integerOnly="true"/>
+                </h:inputText>
+                <h:message for="lLimit" style="color: red"/>
+                
+                <h:commandButton action="#{reportMB.generateLeastVendor()}" value="Least Selling Vendors"/>
+            </h:panelGrid>
+            
+        </h:form>
+         </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

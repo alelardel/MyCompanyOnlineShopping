@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
+    <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
     <h:head>
 
     </h:head>
@@ -17,18 +17,10 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                <h:form>
-                    <h:commandLink value="Vendor Request" action="#{adminMB.showVendorRequest()}"></h:commandLink>
-                </h:form>
-                <h:form>
-                    <h:commandLink value="Add StaffUser" action="#{adminMB.addStaffUser()}"></h:commandLink>
-                </h:form>
-                <h:form>
-                    <h:commandLink value="Create Product Category" action="#{adminMB.addCategory()}"></h:commandLink>
-                </h:form>
-<!--                <h:form>
-                    <h:commandLink value="Update User" action=""></h:commandLink>
-                </h:form>-->
+                Welcome Admin!
+                <!--                <h:form>
+                                    <h:commandLink value="Update User" action=""></h:commandLink>
+                                </h:form>-->
 
             </ui:define>
         </ui:composition>

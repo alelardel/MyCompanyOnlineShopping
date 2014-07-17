@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e1e15b1-bdce-485e-bb16-505c8336ca82">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
+	<field name="vendorName" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="totalPrice" class="java.lang.Double"/>
+	<variable name="sumQty" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantity}]]></variableExpression>
+	</variable>
+	<variable name="sumPrice" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalPrice}]]></variableExpression>
+	</variable>
+	<variable name="companyRev" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{totalPrice}*70)/100]]></variableExpression>
+	</variable>
+	<variable name="sumCompanyRev" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{companyRev}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="29" uuid="c4ed137e-0287-4148-821c-bf798becb6d0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Georgia" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Least Selling Vendors]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="106" y="58" width="80" height="15" uuid="db3c606a-86f2-4b17-8efb-2209701fe179"/>
+				<textElement>
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="58" width="85" height="15" uuid="3da8e9da-95a3-4823-8666-74562ed9348f"/>
+				<textElement>
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="57" width="76" height="15" uuid="e2ba0f22-efae-4632-a04a-c85e25899210"/>
+				<textElement>
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="57" width="56" height="15" uuid="fa45cc65-867d-4e1f-8155-e3f8043cfd74"/>
+				<textElement>
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To Date :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="6" width="151" height="16" uuid="72a01a3e-31ec-44d3-b656-730480b0e5b5"/>
+				<textElement>
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendor Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="6" width="97" height="16" uuid="552aa4a9-64ae-4c97-a128-36b0211d12af"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="6" width="103" height="16" uuid="fc6c8e3b-1a03-4be0-8401-a485b4fd1159"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<line>
+				<reportElement x="11" y="3" width="536" height="1" uuid="901cc1a8-f8e9-49d7-9b66-d46eebc3a15b"/>
+			</line>
+			<line>
+				<reportElement x="11" y="25" width="536" height="1" uuid="bc3d6251-32d2-43bb-9e61-66e1973a1317"/>
+			</line>
+			<staticText>
+				<reportElement x="403" y="6" width="123" height="16" uuid="e3479d74-0e06-426a-80e6-3816a9b177e1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Company Revenue]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="35" y="1" width="151" height="17" uuid="227d545f-005d-4d97-b933-34e8d97188f5"/>
+				<textElement>
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vendorName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="1" width="97" height="17" uuid="c13d4c16-3320-4598-9a12-69d522f275b0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="289" y="1" width="103" height="17" uuid="95f27dfc-3fca-47f4-ac37-35d50461f391"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="11" y="18" width="536" height="1" uuid="07d2d4e3-1c44-4409-95b2-11ab7183d0f3"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="403" y="1" width="123" height="19" uuid="5b5f3674-0e6a-44fa-bf8b-a5bcb56aee40"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{companyRev}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="189" y="2" width="94" height="16" uuid="2ee9bc19-5ac5-460e-bd02-bd6f729b4051"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumQty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="289" y="2" width="103" height="16" uuid="7a7794a2-3dac-4732-b811-bbd16747343d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumPrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="403" y="2" width="123" height="16" uuid="e54bac04-38c9-4a0e-88b4-00d7c56ef9f0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Georgia" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumCompanyRev}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

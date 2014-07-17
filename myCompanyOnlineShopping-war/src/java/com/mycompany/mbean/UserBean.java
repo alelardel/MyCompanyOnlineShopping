@@ -66,6 +66,9 @@ public class UserBean implements Serializable {
     private Vendor vendor = new Vendor();
     
     private boolean userLogged;
+    private boolean isVendorUser;
+    private boolean isAdminUser;
+    private boolean isInternalStaffUser;
     private static String redirect = "";
 
     public static String getRedirect() {
@@ -99,6 +102,33 @@ public class UserBean implements Serializable {
     public void setIsUserLogged(boolean userLogged) {
         this.userLogged = userLogged;
     }
+
+    public boolean isIsVendorUser() {
+        return isVendorUser;
+    }
+
+    public void setIsVendorUser(boolean isVendorUser) {
+        this.isVendorUser = isVendorUser;
+    }
+
+    public boolean isIsAdminUser() {
+        return isAdminUser;
+    }
+
+    public void setIsAdminUser(boolean isAdminUser) {
+        this.isAdminUser = isAdminUser;
+    }
+
+    public boolean isIsInternalStaffUser() {
+        return isInternalStaffUser;
+    }
+
+    public void setIsInternalStaffUser(boolean isInternalStaffUser) {
+        this.isInternalStaffUser = isInternalStaffUser;
+    }
+    
+    
+    
 
     /**
      * add customer and
@@ -151,12 +181,14 @@ public class UserBean implements Serializable {
             if (userrole.getUserCode() == 1) {
                 activeSession.setAttribute("loggedUser", user);
                 userLogged = true;
+                isAdminUser = true;
                 retURL = "admin_home";
             } //vedor user 
 
             else if (userrole.getUserCode() == 2) {
                 activeSession.setAttribute("loggedUser", user);
                 userLogged = true;
+                isInternalStaffUser = true;
                 retURL = "internalUserHomePage";
             } //vedor user
             else if (userrole.getUserCode() == 3) {
@@ -166,7 +198,7 @@ public class UserBean implements Serializable {
                 if (vendorService.isVendorApproved(vendor)) {
                      activeSession.setAttribute("loggedUser", user);
   					userLogged = true;
-                    
+                    isVendorUser = true;
                     retURL = "vendoruser_home";
                 }
 

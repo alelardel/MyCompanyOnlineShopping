@@ -47,20 +47,22 @@ public class ShoppingCartMB implements Serializable {
     private double price;
 
     private int noOfItemsInTheCart;
-    
+
     private Users usr;
 
     public ShoppingCartMB() {
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-         usr= (Users) activeSession.getAttribute("loggedUser");
+        usr = (Users) activeSession.getAttribute("loggedUser");
     }
+
     /**
      * Add products to cart
-     * @param productId 
+     *
+     * @param productId
      */
     public void addToCart(int productId) {
 
@@ -69,7 +71,7 @@ public class ShoppingCartMB implements Serializable {
         //productQty = 5;
         //price = 100;
 
-        if (shoppingCart.getId()==0) {
+        if (shoppingCart.getId() == 0) {
             shoppingCart.setUser(usr);
             shoppingCart.setShopDate(Calendar.getInstance());
             //shoppingCart.setTotalPrice(100000.00);
@@ -79,13 +81,13 @@ public class ShoppingCartMB implements Serializable {
         ShoppingCartItem item = new ShoppingCartItem();
         item.setProduct(product);
         item.setQuantity(productQty);
-        item.setPrice(productQty*product.getPrice());
+        item.setPrice(productQty * product.getPrice());
         item.setShoppingCart(shoppingCart);
         cartItems.add(item);
 
         //TODO: Change user with proper user info and Total Price
-        shoppingCart=shoppingCartService.addToCart(shoppingCart);
-        if (shoppingCart!=null) {
+        shoppingCart = shoppingCartService.addToCart(shoppingCart);
+        if (shoppingCart != null) {
             System.out.println("Product in Shopping cart Add Successful");
 
             noOfItemsInTheCart = shoppingCart.getShoppingCartItems().size();
@@ -94,25 +96,29 @@ public class ShoppingCartMB implements Serializable {
             System.out.println("Product add failed");
         }
     }
+
     /**
      * remove product
-     * @param item 
+     *
+     * @param item
      */
-    public void removeProduct(ShoppingCartItem item){
-        shoppingCart=shoppingCartService.removeFromCart(shoppingCart, item);
+    public void removeProduct(ShoppingCartItem item) {
+        shoppingCart = shoppingCartService.removeFromCart(shoppingCart, item);
     }
+
     /**
      * Update the shopping cart
-     * @param item 
+     *
+     * @param item
      */
-    public void updateProduct(ShoppingCartItem item){
-        
-        for(ShoppingCartItem cartItem:shoppingCart.getShoppingCartItems()){
-            if(cartItem.getId()==item.getId()){
-                 cartItem.setPrice(item.getQuantity()*item.getProduct().getPrice());
+    public void updateProduct(ShoppingCartItem item) {
+
+        for (ShoppingCartItem cartItem : shoppingCart.getShoppingCartItems()) {
+            if (cartItem.getId() == item.getId()) {
+                cartItem.setPrice(item.getQuantity() * item.getProduct().getPrice());
             }
         }
-        shoppingCart=shoppingCartService.addToCart(shoppingCart);
+        shoppingCart = shoppingCartService.addToCart(shoppingCart);
     }
 
     public ShoppingCart getShoppingCart() {
