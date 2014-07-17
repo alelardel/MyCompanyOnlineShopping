@@ -13,6 +13,7 @@ import com.mandrill.clients.model.MergeVar;
 import com.mandrill.clients.request.MandrillMessagesRequest;
 import com.mandrill.clients.request.MandrillRESTRequest;
 import com.mandrill.clients.util.MandrillConfiguration;
+import com.mycompany.models.CreditCard;
 import com.mycompany.models.PurchaseOrder;
 import com.mycompany.models.ShoppingCartItem;
 import com.mycompany.models.Users;
@@ -20,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,17 +48,23 @@ public class MandrillService {
     private static HttpClient client;
     private static ObjectMapper mapper;
     private static Properties props;
-
+    
+    private final static String MANDRILL_API_KEY = "1m627Fh2pGIKLeweZAUfjg";
+    
     private final static String TEMPLATE_USER_REGISTERED = "user-registered";
 
     private final static String TEMPLATE_PURCHASE_ORDER = "Orderdetail";
-
+    private final static String TEMPLATE_NEW_CREDIT_CARD = "newcreditcard";
+    
     private final static String TAG_REGISTRATION = "registration";
     private final static String TAG_USER_ACCOUNT = "useraccount";
 
     private final static String TAG_ORDER = "order";
     private final static String TAG_SALES = "Sales";
 
+    private final static String TAG_CREDIT_CARD = "creditcard";
+    private final static String TAG_PAYMENT_GATEWAY = "paymentgateway";
+    
     private static boolean initialized = false;
 
     /**
@@ -71,7 +80,7 @@ public class MandrillService {
                 mapper = new ObjectMapper();
                 props = new Properties();
 
-                config.setApiKey("1m627Fh2pGIKLeweZAUfjg");
+                config.setApiKey(MANDRILL_API_KEY);
                 config.setApiVersion("1.0");
                 config.setBaseURL("https://mandrillapp.com/api");
                 request.setConfig(config);
@@ -80,7 +89,7 @@ public class MandrillService {
 
                 client = new DefaultHttpClient();
                 request.setHttpClient(client);
-
+                
                 initialized = true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -145,6 +154,41 @@ public class MandrillService {
         }
     }
 
+    public void sendNewCreditCardInformation(
+                        Users user, CreditCard creditCard, String subject) {
+        initialize();
+        if(user!=null && user.getEmail()!=null && user.getEmail().length()>0
+                && creditCard!=null){
+            MandrillTemplatedMessageRequest mandrillTemplatedMessageRequest = new MandrillTemplatedMessageRequest();
+            mandrillTemplatedMessageRequest.setTemplate_name(TEMPLATE_NEW_CREDIT_CARD);
+            MandrillMessage message = new MandrillMessage();
+
+            int size = 1;
+            
+            MandrillRecipient[] toEmailArray = new MandrillRecipient[size];
+            toEmailArray[0] = new MandrillRecipient("", user.getEmail());
+
+            message.setTo(toEmailArray);	 
+            message.setSubject(subject);
+
+            message.setTags(new String[]{TAG_CREDIT_CARD, TAG_PAYMENT_GATEWAY});
+
+            List<MergeVar> globalMergeVars = new ArrayList<>();
+            globalMergeVars.add(new MergeVar("Name", user.getFirstName()));
+            globalMergeVars.add(new MergeVar("NameOnCard", creditCard.getCardholderName()));
+            globalMergeVars.add(new MergeVar("CreditCardNumber", creditCard.getCardNumber()));
+            globalMergeVars.add(new MergeVar("ExpiryDate", creditCard.getExpiryDate()));
+            globalMergeVars.add(new MergeVar("CVV", creditCard.getSecurityCode()));
+
+            message.setGlobal_merge_vars(globalMergeVars);
+            mandrillTemplatedMessageRequest.setMessage(message);
+            try {
+                messagesRequest.sendTemplatedMessage(mandrillTemplatedMessageRequest);
+            } catch (RequestFailedException ex) {
+                Logger.getLogger(MandrillService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     public MandrillTemplatedMessageRequest getMandrillOrderMessageObject(ArrayList<String> toEmailList,
             PurchaseOrder order, String subject) {
         initialize();
