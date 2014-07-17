@@ -15,8 +15,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ * This class is for product category and contains category features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 @NamedQueries({

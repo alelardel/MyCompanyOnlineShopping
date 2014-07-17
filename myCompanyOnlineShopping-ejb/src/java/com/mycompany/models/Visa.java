@@ -10,8 +10,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
- *
+ * This class is for Visa Card and shares Credit Card features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class Visa extends CreditCard implements Serializable {

@@ -21,9 +21,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
- *
+ * This class is for Shopping Cart and contains Shopping Cart features.
+ * 
  * @author james
- * @author Md Mojahidul Islam
+ * version 1.0.0
  */
 @Entity
 public class ShoppingCart implements Serializable {

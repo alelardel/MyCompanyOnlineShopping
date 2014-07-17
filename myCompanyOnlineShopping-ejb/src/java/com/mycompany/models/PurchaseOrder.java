@@ -21,8 +21,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
- *
+ * This class is for Product Order and contains Product Order features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class PurchaseOrder implements Serializable {

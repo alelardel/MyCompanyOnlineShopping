@@ -15,8 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * This class is for Vendor User and contains Vendor user features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class VendorUser extends Users implements Serializable {

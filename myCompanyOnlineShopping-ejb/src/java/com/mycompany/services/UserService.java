@@ -14,19 +14,27 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
+ * This service class is responsible for All the CRUD operations on user entity.
  *
- * @author TalakB
+ * @author Talak
+ * @version 1.0.0
  */
 @Stateless
 public class UserService {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @EJB
     MandrillService mandrillService;
 
-    public boolean saveUser(Users user) {     
+    /**
+     * This method saves user info into the database and returns status.
+     *
+     * @param user
+     * @return saved
+     */
+    public boolean saveUser(Users user) {
         boolean saved = false;
         try {
             em.persist(user);
@@ -44,12 +52,12 @@ public class UserService {
 
         return saved;
     }
-    
+
     /**
      * Update User Information by Md Mojahidul Islam
-     * 
+     *
      * @param user
-     * @return 
+     * @return
      */
        public Users updateUser(Users user) {     
  
@@ -60,8 +68,13 @@ public class UserService {
             return null;
         }
     }
-    
 
+    /**
+     * This method authenticates user access and returns status.
+     * 
+     * @param user
+     * @return userAuthenticated or null
+     */
     public Users authenticateUser(Users user) {
 
         String userName = user.getEmail();
@@ -77,11 +90,22 @@ public class UserService {
         }
         return null;
     }
-    
-    public Users findById(int id){
+/**
+ * This method gives you user info by id
+ * 
+ * @param id
+ * @return user
+ */
+    public Users findById(int id) {
         return em.find(Users.class, id);
     }
-   public Role getUserRole(Users user) {
+/**
+ * This method gives you a role of particular user
+ * 
+ * @param user
+ * @return userRole or null
+ */
+    public Role getUserRole(Users user) {
         Role userRole = em.find(Role.class, user.getRole().getId());
         if (userRole != null) {
             return userRole;
@@ -89,8 +113,13 @@ public class UserService {
             return null;
         }
 
-    }	
-
+    }
+/**
+ * This method gives you user info by email id.
+ * 
+ * @param email
+ * @return registeredUser or null
+ */
     public Users findBYEmailId(String email) {
         Query query = em.createNamedQuery("findUserByEmailId");
         query.setParameter("uemail", email);
@@ -100,8 +129,14 @@ public class UserService {
         }
         return null;
     }
-    
-    public VendorUser findVuserBYEmailId(String email) {
+/**
+ * This method gives vendor user info by email id.
+ * 
+ * @param email
+ * @return registeredUser or null
+ */
+ 
+ public VendorUser findVuserBYEmailId(String email) {
         Query query = em.createNamedQuery("findUserByEmailId");
         query.setParameter("uemail", email);
         if (!query.getResultList().isEmpty()) {

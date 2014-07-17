@@ -12,8 +12,10 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 /**
- *
+ *This class is for payment gateway listener
+ * 
  * @author Va Y.
+ * version 1.0.0
  */
 @Stateless
 @LocalBean
@@ -21,7 +23,12 @@ public class PaymentGatewayListener {
     
     @EJB
     private PaymentGatewayService client;
-
+/**
+ * This method modifies greeting message
+ * @param ctx
+ * @return
+ * @throws Exception 
+ */
     @AroundInvoke
     public Object modifyGreeting(InvocationContext ctx) throws Exception {
         Object[] parameters = ctx.getParameters();

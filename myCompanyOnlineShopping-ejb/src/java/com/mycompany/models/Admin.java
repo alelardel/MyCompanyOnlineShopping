@@ -10,8 +10,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
- *
+ * This class is for admin user and shares all the attributes of User.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class Admin extends Users implements Serializable {

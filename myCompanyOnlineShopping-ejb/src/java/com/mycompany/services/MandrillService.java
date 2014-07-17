@@ -25,8 +25,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
- *
+ *This class handles SMTP facility
+ * 
  * @author james
+ * version 1.0.0
  */
 @Stateless
 public class MandrillService {
@@ -48,6 +50,10 @@ public class MandrillService {
     
     private static boolean initialized = false;
     
+    /**
+     * This method initializes all the methods
+     * 
+     */
     private void initialize() {
         if(!initialized) {
             try {
@@ -73,11 +79,24 @@ public class MandrillService {
             }
         }
     }
+    /**
+     * This method sends e-mail
+     * 
+     * @param mandrillTemplatedMessageRequest
+     * @throws RequestFailedException 
+     */
 
     public void sendTemplatedMessage(MandrillTemplatedMessageRequest mandrillTemplatedMessageRequest) throws RequestFailedException {
         initialize();
         messagesRequest.sendTemplatedMessage(mandrillTemplatedMessageRequest);
     }
+    /**
+     * This method request for templated SMTP.
+     * @param toEmailList
+     * @param user
+     * @param subject
+     * @return 
+     */
 
     public MandrillTemplatedMessageRequest getMandrillMessageObject(ArrayList<String> toEmailList,
             Users user, String subject) {

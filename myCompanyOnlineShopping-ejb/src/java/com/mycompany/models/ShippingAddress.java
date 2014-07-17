@@ -10,8 +10,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
- *
+ * This class is for Shipping address and shares Address attributes .
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class ShippingAddress extends Address implements Serializable {

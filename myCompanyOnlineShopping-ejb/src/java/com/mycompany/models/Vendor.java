@@ -21,8 +21,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * This class is for Vendor and contains Vendor features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 @NamedQueries({

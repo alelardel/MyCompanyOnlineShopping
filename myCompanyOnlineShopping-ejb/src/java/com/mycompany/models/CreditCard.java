@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * This class is for Credit Card and contains Credit Card features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class CreditCard implements Serializable {

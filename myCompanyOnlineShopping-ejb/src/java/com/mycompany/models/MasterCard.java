@@ -10,8 +10,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
- *
+ * This class is for Master Card and shares Credit Card features.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class MasterCard extends CreditCard implements Serializable {

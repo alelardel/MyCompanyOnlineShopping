@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * This class holds address information for shipping and billing.
+ * 
  * @author james
+ * version 1.0.0
  */
 @Entity
 public class Address implements Serializable {

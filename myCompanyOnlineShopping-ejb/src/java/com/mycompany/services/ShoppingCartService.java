@@ -20,6 +20,12 @@ public class ShoppingCartService implements ShoppingCartServicesLocal {
 
     @PersistenceContext
     private EntityManager em;
+    /**
+     * This method adds product to shopping cart
+     * 
+     * @param cart
+     * @return cart or null
+     */
 
     public ShoppingCart addToCart(ShoppingCart cart) {
         

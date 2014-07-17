@@ -6,7 +6,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 //import org.myorg.SystemUnavailableException;
 import sun.misc.BASE64Encoder;
- 
+ /**
+  * This class handles password encryption
+  * 
+  * @author james
+  * version 1.0.0
+  */
 public class PasswordService implements Serializable
 {
   private static PasswordService instance;
@@ -14,7 +19,13 @@ public class PasswordService implements Serializable
   public PasswordService()
   {
   }
- 
+ /**
+  * This method encrypts password
+  * 
+  * @param plaintext
+  * @return hash
+  * @throws Exception 
+  */
   public synchronized String encrypt(String plaintext) throws Exception
   {
     MessageDigest md = null;
@@ -38,14 +49,5 @@ public class PasswordService implements Serializable
     byte raw[] = md.digest(); //step 4
     String hash = (new BASE64Encoder()).encode(raw); //step 5
     return hash; //step 6
-  }
- 
-  public static synchronized PasswordService getInstance() //step 1
-  {
-    if(instance == null)
-    {
-       instance = new PasswordService();
-    }
-    return instance;
   }
 }

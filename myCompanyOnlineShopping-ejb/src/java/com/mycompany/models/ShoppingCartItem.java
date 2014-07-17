@@ -17,9 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * This class is for Shopping Cart item and contains Shopping Cart item features.
+ * 
  * @author james
- * @author Md Mojahidul Islam
+ * version 1.0.0
  */
 @Entity
 public class ShoppingCartItem implements Serializable {

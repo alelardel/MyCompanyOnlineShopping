@@ -6,9 +6,12 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
 /**
- *
- * @author TalakB
+ * This service class is responsible for saving category
+ * 
+ * @author shahin
+ * @version 1.0.0
  */
 @Stateless
 @LocalBean
@@ -16,7 +19,11 @@ public class AdminService {
 
     @PersistenceContext
     private EntityManager em;
-    
+    /**
+     *This method saves customer information into database. 
+     * @param category
+     * @return saved 
+     */
       public boolean persistCustomer(Category category) {
 
         boolean saved = false;

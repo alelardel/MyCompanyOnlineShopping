@@ -38,7 +38,6 @@ public class ProductMB {
     }
     
     public String listProduct() {
-        productService.initdata();
         productList = productService.getAll();
         
         

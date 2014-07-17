@@ -15,9 +15,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ * This class is for Role of Users and contains Credit Card features.
+ * 
+ * 
  * @author james
+ * version 1.0.0
  */
+
 @Entity
 @NamedQueries({
      @NamedQuery(name = "findRoleByUserCode", query = "select r from Role r where r.userCode = :rcode")

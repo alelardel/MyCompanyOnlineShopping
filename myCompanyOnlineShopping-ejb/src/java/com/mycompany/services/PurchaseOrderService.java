@@ -24,10 +24,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 /**
- *
+ * This service class is responsible for persisting order info and finding order by id.
+ * 
  * @author Md Mojahidul Islam
+ * @version 1.0.0
  */
 @Stateless
 public class PurchaseOrderService implements PurchaseOrderServiceLocal {
@@ -40,11 +41,24 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
 
     @EJB
     MandrillService mandrillService;
+    /**
+     * This method gives order by id
+     * @param id
+     * @return 
+     */
 
     @Override
     public PurchaseOrder findById(int id) {
         return em.find(PurchaseOrder.class, id);
     }
+    /**
+     * This method saves order info into database 
+     * @param shoppingCart
+     * @param billingAddress
+     * @param shippingAddress
+     * @param creditCard
+     * @return order
+     */
 
     @Override
     public PurchaseOrder saveOrder(ShoppingCart shoppingCart, BillingAddress billingAddress, ShippingAddress shippingAddress, CreditCard creditCard) {

@@ -21,6 +21,7 @@ import javax.ws.rs.client.WebTarget;
  * </pre>
  *
  * @author Va Y.
+ * version 1.0.0
  */
 @Stateless
 public class MyFinanceService {
@@ -32,16 +33,20 @@ public class MyFinanceService {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTarget = client.target(BASE_URI).path("entities.ordertransaction");
     }
-
-    public void create_XML(Object requestEntity) throws ClientErrorException {
-        webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML));
-    }
-
+/**
+ * This method creates order transaction 
+ * 
+ * @param requestEntity
+ * @throws ClientErrorException 
+ */
     public void create_JSON(Object requestEntity) throws ClientErrorException {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
-    
+   /**
+    * This method closes the client connection
+    * 
+    */ 
 
     public void close() {
         client.close();

@@ -11,14 +11,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author shahin
+ * This service class is responsible for persisting address info.
+ * 
+ * @author Md Mojahidul Islam
+ * @version 1.0.0
  */
+
 @Stateless
 public class AddressService {
 
     @PersistenceContext
     private EntityManager em;
+    /**
+     * This method saves address into database.
+     * @param address
+     * @return 
+     */
 
     public boolean save(Address address) {
         boolean saved = false;

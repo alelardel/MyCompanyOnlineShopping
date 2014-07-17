@@ -7,8 +7,10 @@ package com.mycompany.services.myfiance;
 import java.util.Date;
 
 /**
- *
+ * This class is for Order Transaction and contains Order Transcation features.
+ * 
  * @author Va Y.
+ * version 1.0.0
  */
 
 public class OrderTransaction {

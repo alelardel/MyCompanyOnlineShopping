@@ -7,9 +7,12 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
 /**
- *
+ * This service class is responsible for persisting credit card info.
+ * 
  * @author TalakB
+ * @version 1.0.0
  */
 @Stateless
 @LocalBean
@@ -21,6 +24,12 @@ public class CreditCardService {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * This method saves credit card info. into database.
+     * 
+     * @param userCreditCard
+     * @return 
+     */
     public boolean saveCeditCard(CreditCard userCreditCard) {
         //encrypt users password before persist 
         boolean saved = false;

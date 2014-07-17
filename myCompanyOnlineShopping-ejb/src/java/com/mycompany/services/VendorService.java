@@ -11,8 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
- *
- * @author TalakB
+ * This service class is responsible for all CRUD operations on vendor entity.
+ * 
+ * @author Talak
+ * @version 1.0.0
  */
 @Stateless
 @LocalBean
@@ -21,6 +23,14 @@ public class VendorService {
    
     @PersistenceContext
     private EntityManager em;
+    
+    /**
+     * This method saves vendor and user in database and returns status.
+     * 
+     * @param vendor
+     * @param user
+     * @return saved
+     */
 
     public boolean sendVendorReq(Vendor vendor, VendorUser user) {
 
@@ -35,14 +45,20 @@ public class VendorService {
 
         return saved;
     }
-
+    /**
+     * This method gets all the vendors from the database.
+     * @return 
+     */
     public List<Vendor> getAllVendors() {
 
         TypedQuery<Vendor> query = em.createNamedQuery("listAllVendors", Vendor.class);
         return query.getResultList();
 
     }
-
+/**
+ * This method gets all the non vendors from the database.
+ * @return 
+ */
     public List<Vendor> getNonApprovedVendors() {
 
         TypedQuery<Vendor> query = em.createNamedQuery("listNonApprovedVendors", Vendor.class);
@@ -51,10 +67,10 @@ public class VendorService {
     }
 
     /**
-     * Approve vendor
+     * This method update vendor info in the database and returns status .
      *
      * @param vendor
-     * @return
+     * @return updated
      */
     public boolean updateVendor(Vendor vendor) {
         boolean updated = false;
@@ -78,7 +94,7 @@ public class VendorService {
     }
 
     /**
-     * Set the vendor user role 3 (vendor user)
+     * This method sets the vendor user role 3 (vendor user) to approve and returns updated status
      *
      * @param vendor
      * @return 
@@ -98,6 +114,11 @@ public class VendorService {
 
     }
 
+    /**
+     * This method checks whether vendor is approved or not and returns status accordingly.
+     * @param vendor
+     * @return 
+     */
     public boolean isVendorApproved(Vendor vendor) {
         boolean approved = false;
         if (vendor.isApproved()) {
@@ -107,10 +128,10 @@ public class VendorService {
     }
 
     /**
-     * find vendor by ID
+     * This method gives vendor by ID
      *
      * @param id
-     * @return
+     * @return vendor or null
      */
     public Vendor findVendor(int id) {
         Vendor vendor = em.find(Vendor.class, id);

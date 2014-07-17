@@ -8,8 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
- * @author TalakB
+ * This service class is responsible for finding user role by id and getting user role by user code.
+ * 
+ * @author Md Mojahidul Islam
+ * @version 1.0.0
  */
 @Stateless
 @LocalBean
@@ -19,21 +21,21 @@ public class RoleService {
     EntityManager em;
 
     /**
-     * find role by ID
+     * This method finds role by ID
      *
      * @param id
-     * @return
+     * @return userRole
      */
     public Role findById(int id) {
         return em.find(Role.class, id);
     }
 
     /**
-     * Get which user role is the user assigned.
+     * This methods get which user role is the user assigned.
      *
      * @param ucode
      * @param user
-     * @return
+     * @return userRole or role
      */
     public Role getUserRoleBYUserCode(int ucode) {
         Query query = em.createNamedQuery("findRoleByUserCode");

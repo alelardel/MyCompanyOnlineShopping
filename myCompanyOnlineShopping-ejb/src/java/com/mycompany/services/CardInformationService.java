@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.services;
 
 import com.mycompany.interfaces.CardInformationServiceLocal;
@@ -15,8 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * This service class is responsible for persisting credit card info.
+ * 
  * @author Md Mojahidul Islam
+ * @version 1.0.0
  */
 @Stateless
 public class CardInformationService implements CardInformationServiceLocal {
@@ -26,7 +24,12 @@ public class CardInformationService implements CardInformationServiceLocal {
     
 //    @EJB
 //    private PaymentGatewayService client;
-
+/**
+ * This method saves credit card information into database
+ * 
+ * @param cardInfo
+ * @return 
+ */
     @Interceptors(PaymentGatewayListener.class)
     @Override
     public CreditCard save(CreditCard cardInfo) {
