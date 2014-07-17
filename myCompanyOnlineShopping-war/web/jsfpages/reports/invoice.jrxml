@@ -142,32 +142,29 @@
 			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="16" splitType="Stretch">
+	<summary>
+		<band height="21">
 			<textField>
-				<reportElement x="281" y="0" width="100" height="15" uuid="03707141-ec03-4b2e-92e1-e9147d810236"/>
+				<reportElement x="281" y="3" width="100" height="15" uuid="03707141-ec03-4b2e-92e1-e9147d810236"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalQty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="47" y="0" width="100" height="15" uuid="1c883435-ffbf-4c71-b1a5-2cc0755bfd9a"/>
+				<reportElement x="47" y="3" width="100" height="15" uuid="1c883435-ffbf-4c71-b1a5-2cc0755bfd9a"/>
 				<textElement>
 					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00">
-				<reportElement x="406" y="0" width="100" height="15" uuid="9cf87e71-08a0-4c30-ab92-a401e00204e7"/>
+				<reportElement x="406" y="3" width="100" height="15" uuid="9cf87e71-08a0-4c30-ab92-a401e00204e7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalSum}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="8" splitType="Stretch"/>
-	</pageFooter>
+	</summary>
 </jasperReport>

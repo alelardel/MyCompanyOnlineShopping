@@ -36,7 +36,7 @@
 <!--            <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="10" label="Expiry Date" converterMessage="Date should be in MM/yy format">
                 <f:convertDateTime pattern="MM/yy"/>
             </h:inputText>-->
-             <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="10" label="Expiry Date" 
+             <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="5" label="Expiry Date" 
                           validatorMessage="ExpiredDate should be in MM/yy format">
                 <f:validateRegex pattern="(0[1-9]|1[0-2])/[0-9]{2}" />
             </h:inputText>

@@ -29,8 +29,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
+ * Managed Bean class for generating invoice for customer.
  *
- * @author shahin
+ * @author Md Mojahidul Islam
+ * @version 1.0.0
  */
 @Named(value = "invoiceMB")
 @SessionScoped
@@ -44,23 +46,23 @@ public class InvoiceMB implements Serializable {
     public InvoiceMB() {
     }
 
-//    public void init(){
-//        JRBeanCollectionDataSource beanCollectionSource=new JRBeanCollectionDataSource(order.getShoppingCart().getShoppingCartItems());
-//        JasperFillManager.fillReport(null, null)
-//    }
-//    
-//    
+    /**
+     *
+     * @param orderId Purchase Order Id
+     * @throws JRException
+     * @throws IOException
+     */
     public void generateInvoicePDF(int orderId) throws JRException, IOException {
 
         order = purchaseOrderService.findById(orderId);
-
-        // EntityManager em=PerisitenceManager.getEntityManager();
-        // Query query= em.createQuery("select s from ShoppingCart s");
-        //List<shoppingcart> listOfShoppingCart=(List<shoppingcart>)query.getResultList();
         Map<String, Object> param = new HashMap<String, Object>();
 
         param.put("invoiceNumber", String.valueOf(order.getId()));
-        param.put("customerName", order.getUser().getFirstName() + " " + order.getUser().getLastName());
+        if (order.getUser() != null) {
+            param.put("customerName", order.getUser().getFirstName() + " " + order.getUser().getLastName());
+        } else {
+            param.put("customerName", "Guest");
+        }
 
         String bdate = new SimpleDateFormat("MM/dd/yyyy").format(order.getBuyingDate().getTime());
 
