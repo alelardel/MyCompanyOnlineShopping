@@ -56,6 +56,11 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
 
     @Resource
     UserTransaction utx;
+    /**
+     * This method gives order by id
+     * @param id
+     * @return 
+     */
 
     @Override
     public PurchaseOrder findById(int id) {
@@ -88,6 +93,14 @@ public class PurchaseOrderService implements PurchaseOrderServiceLocal {
         }
         return null;
     }
+    /**
+     * This method saves order info into database 
+     * @param shoppingCart
+     * @param billingAddress
+     * @param shippingAddress
+     * @param creditCard
+     * @return order
+     */
 
     @Override
     public PurchaseOrder saveOrder(ShoppingCart shoppingCart, BillingAddress billingAddress, ShippingAddress shippingAddress, CreditCard creditCard) {

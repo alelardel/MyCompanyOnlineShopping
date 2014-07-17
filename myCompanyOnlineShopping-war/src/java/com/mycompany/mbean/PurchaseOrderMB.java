@@ -66,7 +66,7 @@ public class PurchaseOrderMB implements Serializable {
 
     private PurchaseOrder purchaseOrder;
 
-    private ShoppingCart shoppingCart = new ShoppingCart();
+    private ShoppingCart shoppingCart;
 
     private Product product;
 
@@ -76,14 +76,15 @@ public class PurchaseOrderMB implements Serializable {
 
     private int noOfItemsInTheCart;
 
-    private Users usr = null;
-
+    private Users usr=null;
+    
     private String redirect;
-
+    
     /**
      * constructor
      */
     public PurchaseOrderMB() {
+        shoppingCart= new ShoppingCart();
         purchaseOrder = new PurchaseOrder();
         billingAddress = new BillingAddress();
         shippingAddress = new ShippingAddress();

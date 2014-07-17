@@ -28,9 +28,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
- * This class handles SMTP facility
- *
- * @author james version 1.0.0
+ *This class handles SMTP facility
+ * 
+ * @author james
+ * version 1.0.0
  */
 @Stateless
 public class MandrillService {

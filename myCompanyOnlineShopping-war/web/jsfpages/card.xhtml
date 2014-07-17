@@ -33,8 +33,8 @@
             <h:message for="cardNumber" style="color:red;"/>
             
             Expiry Date
-            <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="5" label="Expiry Date">
-                <f:validateLength maximum="5" minimum="4"/>
+            <h:inputText id="popup" value="#{purchaseOrderMB.cardInfo.expiryDate}" maxlength="10" label="Expiry Date" converterMessage="Date should be in MM/dd/yyyy format">
+                <f:convertDateTime pattern="MM/dd/yyyy"/>
             </h:inputText>
             <h:message for="popup" style="color:red;"/>
             
@@ -46,7 +46,7 @@
             
             </h:panelGrid>
             
-            <h:commandButton value="Confirm" action="#{purchaseOrderMB.saveCardInformation()}"/>
+            <h:commandButton value=" Next " action="#{purchaseOrderMB.saveCardInformation()}"/>
             
         </h:form>
              </ui:define>
