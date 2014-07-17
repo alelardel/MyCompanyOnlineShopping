@@ -1,5 +1,6 @@
 package com.mycompany.mbean;
 
+import com.mycompany.mbean.util.ContactDetailValidator;
 import com.mycompany.services.CreditCardService;
 import com.mycompany.services.UserService;
 import com.mycompany.models.CreditCard;
@@ -230,8 +231,29 @@ public class UserBean implements Serializable {
      * @param c
      * @param value
      */
-    public void checkEmail(FacesContext fc, UIComponent c, Object value) {
+    public void checkEmailPattern(FacesContext fc, UIComponent c, Object value) {
         String email = (String) value;
+
+        //check email format using regx example@example.com 
+        ContactDetailValidator contactValidator = new ContactDetailValidator();
+
+        if (!contactValidator.emailValidator(email)) {
+            throw new ValidatorException(
+                    new FacesMessage("Please enter valid email."));
+        }
+    }
+
+    public void isEmailRegistered(FacesContext fc, UIComponent c, Object value) {
+        String email = (String) value;
+
+        //check email format using regx example@example.com 
+        ContactDetailValidator contactValidator = new ContactDetailValidator();
+
+        if (!contactValidator.emailValidator(email)) {
+            throw new ValidatorException(
+                    new FacesMessage("Please enter valid email."));
+        }
+        //check if the email is registered. 
         Users userCheck = userservice.findBYEmailId(email);
         if (userCheck != null) {
             throw new ValidatorException(

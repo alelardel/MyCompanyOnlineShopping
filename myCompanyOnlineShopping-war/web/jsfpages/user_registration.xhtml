@@ -14,6 +14,7 @@
                 <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
+                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
 
@@ -22,19 +23,28 @@
                         <h2>Fill the registration form</h2>
                         <h:form>
 
-                            <h:panelGrid columns="2">
+                            <h:panelGrid columns="3">
 
                                 <h:outputText id="vcustifnout" value="First Name: "/>
-                                <h:inputText id="custifnin" value="#{userBean.user.firstName}" />
+                                <h:inputText id="custifnin" value="#{userBean.user.firstName}" 
+                                             required="true" validatorMessage="First name is required" />
+                                <h:message for="custifnin" id="fnameError"  style="color:red"/>
                                 <h:outputText id="vcustlnout" value="Last Name: "/>
-                                <h:inputText id="custlnin" value="#{userBean.user.lastName}"/>
-                                <h:outputText id="vcustemailout" value="Email: "/>
-                                <h:inputText id="custadin" value="#{userBean.user.email}"/>
+                                <h:inputText id="custlnin" value="#{userBean.user.lastName}" 
+                                             required="true" validatorMessage="Last name is required" />
+                                <h:message for="custlnin" id="lnameError"  style="color:red"/>
+                                <h:outputText id="vcustemail" value="Email: "/>
+                                <h:inputText id="custemailin" value="#{userBean.user.email}" 
+                                             required="true" requiredMessage="Email is required."
+                                             validator="#{userBean.isEmailRegistered}"/>
+                                <h:message for="custemailin" id="nameError"  style="color:red"/>
                                 <h:outputText id="vcustpassout" value="Password: "/>
-                                <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
-                                .
-                                <h:commandButton id="submit" class="button" action="#{userBean.addUsers()}" value="Register"/>
+                                <h:inputSecret id="custpassin" value="#{userBean.user.password}"
+                                               required="true" requiredMessage="Password is required."/>
+                                <h:message for="custpassin" id="passError"  style="color:red"/>
                             </h:panelGrid>
+                            <h:commandButton id="submit" styleClass="searchform-button" 
+                                             action="#{userBean.addUsers()}" value="Register"/>
                         </h:form>
                         <br/>
                     </div><!--/sign up form-->

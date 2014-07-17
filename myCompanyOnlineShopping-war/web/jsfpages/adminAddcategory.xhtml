@@ -20,15 +20,18 @@
                 <h:outputText id="addcust" value="Add category"/>
                 <h:form>
                     <h:form>
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="3">
                             <h:outputText id="custfnout" value="Category Name: " />
-                            <h:inputText id="custifnin" value="#{adminMB.category.categoryName}">
-                            </h:inputText>
+                            <h:inputText id="custifnin" value="#{adminMB.category.categoryName}" 
+                                         required="true" validatorMessage="Category name is required" />
+                            <h:message for="custifnin" id="fnameError"  style="color:red"/>
                             <h:outputText id="custlnout" value="Description: "/>
-                            <h:inputText id="custlnin" value="#{adminMB.category.description}" rendered="true"/>
+                            <h:inputText id="custlnin" value="#{adminMB.category.description}" 
+                                         required="true" validatorMessage="Category name is required" />
+                            <h:message for="custlnin" id="fnaaameError"  style="color:red"/>
                         </h:panelGrid>
                         <h:commandButton id="submit" action="#{adminMB.saveCategory()}" value="Save"/>
-                        <h:commandButton id="toindx" action="index" value="Back" immediate="true"/>
+                        <h:commandButton id="toindx" action="admin_home" value="Back" immediate="true"/>
                         <h:commandButton id="cancel" value="Cancel" immediate="true" type="reset"/>
                     </h:form>
                 </h:form>

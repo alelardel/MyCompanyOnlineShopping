@@ -16,11 +16,16 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                         <h:outputText id="custadout" value="Email: "/>
-                        <h:inputText id="custadin" value="#{userBean.user.email}"/>
+                        <h:inputText id="custadin" value="#{userBean.user.email}" 
+                                     required="true" requiredMessage="Email is required."
+                                     validator="#{userBean.checkEmailPattern}"/>
+                        <h:message for="custadin" id="nameError"  style="color:red"/>
                         <h:outputText id="custpassout" value="Password: "/>
-                        <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
+                        <h:inputSecret id="custpassin" value="#{userBean.user.password}" 
+                                       required="true" requiredMessage="Password is required."/>
+                        <h:message for="custpassin" id="passError"  style="color:red"/>
                     </h:panelGrid>
                     <h:commandButton id="submit" action="#{userBean.loginUser()}" value="Login"/>
                 </h:form>

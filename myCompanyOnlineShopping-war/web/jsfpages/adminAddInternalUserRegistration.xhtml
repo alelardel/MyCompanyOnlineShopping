@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-     <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
+    <f:event listener="#{userBean.isAdminUser}" type="preRenderView" />
     <h:head>
         <title>Internal User Registration</title>
         <h:outputStylesheet library="css" name="style.css"  /> 
@@ -20,20 +20,31 @@
             <ui:define name="content">
                 <h:outputText id="addcust" value="Fill the registration form"/>
                 <h:form>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                         <h:outputText id="custfnout" value="First Name: " />
-                        <h:inputText id="custifnin" value="#{internalStaffMB.internaluser.firstName}" />
+                        <h:inputText id="custifnin" value="#{internalStaffMB.internaluser.firstName}" 
+                                     required="true" validatorMessage="First name is required" />
+                        <h:message for="custifnin" id="fnameError"  style="color:red"/>
+
                         <h:outputText id="custlnout" value="Last Name: "/>
-                        <h:inputText id="custlnin" value="#{internalStaffMB.internaluser.lastName}"/>
+                        <h:inputText id="custlnin" value="#{internalStaffMB.internaluser.lastName}"
+                                     required="true" validatorMessage="Last name is required" />
+                        <h:message for="custlnin" id="lnameError"  style="color:red"/>
+
                         <h:outputText id="custemailout" value="Email: "/>
                         <h:inputText id="custemailin" value="#{internalStaffMB.internaluser.email}" 
-                                     rendered="true" validator="#{userBean.checkEmail}">
-                            <f:ajax event="blur" render="emailError"/>
-                        </h:inputText>
+                                     required="true" requiredMessage="Email is required."
+                                     validator="#{userBean.isEmailRegistered}"/>
+                        <h:message for="custemailin" id="nameError"  style="color:red"/>
+
                         <h:outputText id="custpassout" value="Password: "/>
-                        <h:inputSecret id="custpassin" value="#{internalStaffMB.internaluser.password}"/>
+                        <h:inputSecret id="custpassin" value="#{internalStaffMB.internaluser.password}" 
+                                       required="true" requiredMessage="Password is required."/>
+                        <h:message for="custpassin" id="passError"  style="color:red"/>
+
                     </h:panelGrid>
-                    <h:commandButton id="submit" action="#{internalStaffMB.addInternalStaff()}" value="Register"/> 
+                    <h:commandButton id="submit" action="#{internalStaffMB.addInternalStaff()}" value="Register"/>
+                    <h:commandButton id="toindx" action="admin_home" value="Back" immediate="true"/>
                     <h:commandButton id="cancel" value="Cancel" immediate="true" type="reset"/>
                     <h:message for="custemailin" id="emailError"  style="color: red"/>
                 </h:form>
