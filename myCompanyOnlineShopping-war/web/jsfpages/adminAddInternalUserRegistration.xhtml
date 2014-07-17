@@ -23,12 +23,16 @@
                     <h:panelGrid columns="3">
                         <h:outputText id="custfnout" value="First Name: " />
                         <h:inputText id="custifnin" value="#{internalStaffMB.internaluser.firstName}" 
-                                     required="true" validatorMessage="First name is required" />
+                                     required="true" validatorMessage="First name can have alphabets only." >
+                            <f:validateRegex pattern="[A-Za-z]+" />
+                        </h:inputText>
                         <h:message for="custifnin" id="fnameError"  style="color:red"/>
 
                         <h:outputText id="custlnout" value="Last Name: "/>
                         <h:inputText id="custlnin" value="#{internalStaffMB.internaluser.lastName}"
-                                     required="true" validatorMessage="Last name is required" />
+                                     required="true" validatorMessage="Last name can have alphabets only." >
+                            <f:validateRegex pattern="[A-Za-z]+" />
+                        </h:inputText>
                         <h:message for="custlnin" id="lnameError"  style="color:red"/>
 
                         <h:outputText id="custemailout" value="Email: "/>

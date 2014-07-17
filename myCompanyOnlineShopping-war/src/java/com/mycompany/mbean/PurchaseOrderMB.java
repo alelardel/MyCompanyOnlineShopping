@@ -115,7 +115,7 @@ public class PurchaseOrderMB implements Serializable {
     private void updateShoppingCartTotalCost() {
         double total = 0;
         for (ShoppingCartItem shoppingCartItem : shoppingCart.getShoppingCartItems()) {
-            total += shoppingCartItem.getPrice() * shoppingCartItem.getQuantity();
+            total += shoppingCartItem.getPrice();
         }
         shoppingCart.setTotalPrice(total);
     }

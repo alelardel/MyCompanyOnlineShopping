@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Vendor Registration</title>
         <h:outputStylesheet library="css" name="style.css"  /> 
@@ -10,7 +11,7 @@
     <h:body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
-                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+                <ui:include src="/sections/mycomp/header.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
                 <!--                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>-->
@@ -24,20 +25,20 @@
                             <label>Vendor company details</label>
                             <h:panelGrid columns="3">
                                 <h:outputText id="custfnout" value="Company Name: " />
-                                <h:inputText id="custifnin"  value="#{vendorMBean.vendor.vendorName}" 
-                                             required="true" validatorMessage="Company name is required" />
+                                <h:inputText id="custifnin" label="Company name" value="#{vendorMBean.vendor.vendorName}" 
+                                             required="true" validatorMessage="Invalid company name" />
                                 <h:message for="custifnin" id="vfnameError"  style="color:red"/>
                                 <h:outputText id="custlnout" value="Phone: "/>
-                                <h:inputText id="custlnin" value="#{vendorMBean.vendor.phone}"
+                                <h:inputText id="custlnin" label="Phone number" value="#{vendorMBean.vendor.phone}"
                                              required="true" validatorMessage="Phone no. name is required" />
                                 <h:message for="custlnin" id="vphnoError"  style="color:red"/>
                                 <h:outputText id="custadout" value="Web: "/>
-                                <h:inputText id="custadin"  value="#{vendorMBean.vendor.website}"
+                                <h:inputText id="custadin" label="Website address" value="#{vendorMBean.vendor.website}"
                                              required="true" validatorMessage="Website address is required" />
                                 <h:message for="custadin" id="vwebError"  style="color:red"/>
 
                                 <h:outputText id="custpassout" value="Email "/>
-                                <h:inputText id="cuvstpassin" value="#{vendorMBean.vendor.email}"
+                                <h:inputText id="cuvstpassin" label="Email" value="#{vendorMBean.vendor.email}"
                                              required="true" requiredMessage="Email is required."
                                              validator="#{userBean.checkEmailPattern}"/>
                                 <h:message for="cuvstpassin" id="vnameError"  style="color:red"/>
@@ -45,22 +46,26 @@
                                 <h:outputText id="xlabel" value="."/>
                                 
                                 <h:outputText id="vcustifnout" value="First Name "/>
-                                <h:inputText id="vcustifnin" value="#{vendorMBean.vuser.firstName}" 
-                                             required="true" validatorMessage="First name is required" />
+                                <h:inputText id="vcustifnin" label="First name" value="#{vendorMBean.vuser.firstName}" 
+                                             required="true" validatorMessage="First name can have alphabets only." >
+                                    <f:validateRegex pattern="[A-Za-z]+" />
+                                </h:inputText>
                                 <h:message for="vcustifnin" id="vvfnameError"  style="color:red"/>
 
                                 <h:outputText id="vcustlnout" value="Last Name: "/>
-                                <h:inputText id="vcustlnin" value="#{vendorMBean.vuser.lastName}"
-                                             required="true" validatorMessage="Last name is required" />
+                                <h:inputText id="vcustlnin" label="Last name" value="#{vendorMBean.vuser.lastName}"
+                                             required="true" validatorMessage="Last name can have alphabets only." >
+                                    <f:validateRegex pattern="[A-Za-z]+" />
+                                </h:inputText>
                                 <h:message for="vcustifnin" id="vvverefnameError"  style="color:red"/>
 
                                 <h:outputText id="vcustemailout" value="Email: "/>
-                                <h:inputText id="vcustadin" value="#{vendorMBean.vuser.email}"
+                                <h:inputText id="vcustadin" label="Email" value="#{vendorMBean.vuser.email}"
                                              required="true" requiredMessage="Email is required."
                                              validator="#{userBean.isEmailRegistered}"/>
                                 <h:message for="vcustadin" id="vvnameError"  style="color:red"/>
                                 <h:outputText id="vcustpassout" value="Password: "/>
-                                <h:inputSecret id="vcustpassin" value="#{vendorMBean.vuser.password}"
+                                <h:inputSecret id="vcustpassin" label="Password" value="#{vendorMBean.vuser.password}"
                                                             required="true" validatorMessage="Password is required" />
                                 <h:message for="vcustpassin" id="vvvfnameError"  style="color:red"/>
 

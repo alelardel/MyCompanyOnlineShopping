@@ -54,23 +54,38 @@
                             <div class="shop-menu pull-right">
                                 <h:form>
                                     <ul class="nav navbar-nav">
-                                        <li><h:outputText id="welcometxt" value="Welcome #{userBean.loggedInUser.firstName}"></h:outputText><li>|
-                                                <c:choose>
-                                                    <c:when test="#{userBean.isAdminUser}">
-                                                        <h:commandLink value="Vendor Request" action="#{adminMB.showVendorRequest()}"></h:commandLink>
-                                                        <h:commandLink value="Add StaffUser" action="#{adminMB.addStaffUser()}"></h:commandLink>
-                                                        <h:commandLink value="Create Product Category" action="#{adminMB.addCategory()}"></h:commandLink>
-                                                        <h:commandLink value="Reports" action="mycompanyReport"></h:commandLink>
-
-                                                    </c:when>
-                                                    <c:when test="#{userBean.isVendorUser}">
-                                                        <h:commandLink id="listprodlink" value="Add product" action="product_add"></h:commandLink>
-                                                    </c:when>
-                                                    <c:when test="#{userBean.isInternalStaffUser}">
-                                                        <h:commandLink value="Reports" action="mycompanyReport"></h:commandLink>
-                                                    </c:when>
-                                                </c:choose>
-                                            </li><h:commandLink id="logoutxt" value="Logout" action="#{userBean.logoutUser()}"></h:commandLink> </li>
+                                        <li><h:commandLink id="hometxt" value="Home" action="#{productBean.listProduct()}"></h:commandLink></li>
+                                        <c:choose>
+                                            <c:when test="#{userBean.isAdminUser}">
+                                                <li><h:outputText id="welcometxt" value="Welcome #{userBean.loggedInUser.firstName}"></h:outputText></li>
+                                                <li><h:commandLink value="Vendor Request" action="#{adminMB.showVendorRequest()}"></h:commandLink></li>
+                                                <li><h:commandLink value="Add StaffUser" action="#{adminMB.addStaffUser()}"></h:commandLink></li>
+                                                <li><h:commandLink value="Create Product Category" action="#{adminMB.addCategory()}"></h:commandLink></li>
+                                                <li><h:commandLink value="Reports" action="mycompanyReport"></h:commandLink></li>
+                                                <li><h:commandLink id="logoutxt" value="Logout" action="#{userBean.logoutUser()}"></h:commandLink> </li>
+                                            </c:when>
+                                            <c:when test="#{userBean.isVendorUser}">
+                                                <li><h:outputText id="welcometxt" value="Welcome #{userBean.loggedInUser.firstName}"></h:outputText></li>
+                                                <li><h:commandLink id="listprodlink" value="Add product" action="product_add"></h:commandLink></li>
+                                                <li><h:commandLink id="logoutxt" value="Logout" action="#{userBean.logoutUser()}"></h:commandLink> </li>
+                                            </c:when>
+                                            <c:when test="#{userBean.isInternalStaffUser}">
+                                                <li><h:outputText id="welcometxt" value="Welcome #{userBean.loggedInUser.firstName}"></h:outputText></li>
+                                                <li><h:commandLink value="Reports" action="mycompanyReport"></h:commandLink></li>
+                                                <li><h:commandLink id="logoutxt" value="Logout" action="#{userBean.logoutUser()}"></h:commandLink> </li>
+                                            </c:when>
+                                            <c:when test="#{userBean.isUserLogged}">  
+                                                <li><h:outputText id="welcometxt" value="Welcome #{userBean.loggedInUser.firstName}"></h:outputText></li>
+                                                <li><h:commandLink id="viewcart" value="View Cart (#{purchaseOrderMB.shoppingCart.shoppingCartItems.size()})" action="cart"></h:commandLink></li>                                                      
+                                                <li><h:commandLink id="logoutxt" value="Logout" action="#{userBean.logoutUser()}"></h:commandLink> </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li><h:commandLink id="viewcart" value="View Cart (#{purchaseOrderMB.shoppingCart.shoppingCartItems.size()})" action="cart"></h:commandLink></li>
+                                                <li><h:commandLink id="loginlink" value="Login" action="user_login"></h:commandLink></li> 
+                                                <li><h:commandLink id="register" value="Register Buyer" action="#{userBean.registerUser()}"></h:commandLink></li>
+                                                <li><h:commandLink id="vendorreg" value="Register Vendor" action="vendor_registration"></h:commandLink></li>                                                        
+                                            </c:otherwise>
+                                        </c:choose>
 
                                     </ul>
                                 </h:form>
@@ -93,10 +108,10 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-<!--                                    <h:form>
-                                        <li class="active"><h:commandLink id="hometxt" value="Home" action="index"></h:commandLink></li>
-                                         <li><h:commandLink id="viewcart" value="View Cart" action="cart"></h:commandLink></li>
-                                    </h:form>-->
+                                    <!--                                    <h:form>
+                                                                            <li class="active"><h:commandLink id="hometxt" value="Home" action="index"></h:commandLink></li>
+                                                                             <li><h:commandLink id="viewcart" value="View Cart" action="cart"></h:commandLink></li>
+                                                                        </h:form>-->
                                 </ul>
                             </div>
                         </div>

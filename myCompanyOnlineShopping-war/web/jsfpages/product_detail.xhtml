@@ -10,7 +10,7 @@
     <h:body>
         <ui:composition template="/templates/masterLayout.xhtml">
             <ui:define name="heading">
-                <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
+                <ui:include src="/sections/mycomp/header.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
@@ -33,7 +33,7 @@
                                 <span>US $#{productBean.product.price}</span>
                                 <label>Quantity:</label>
                                 <h:inputText value="#{purchaseOrderMB.productQty}" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
-                                    <f:validateLongRange minimum="1" maximum="10000"/>
+                                    <f:validateLongRange minimum="1" maximum="100"/>
                                 </h:inputText>
 <!--                                <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
