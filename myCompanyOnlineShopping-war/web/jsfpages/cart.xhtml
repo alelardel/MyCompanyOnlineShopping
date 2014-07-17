@@ -62,9 +62,9 @@
                           <div class="col-sm-6">
                             <div class="total_area">
                                 <ul>
-                                    <li>Cart Sub Total <span>$59</span></li>
+                                    <li>Cart Sub Total <span>$ #{shoppingCartMB.shoppingCart.totalPrice}</span></li>
                                     <li>Shipping Cost <span>Free</span></li>
-                                    <li>Total <span>$61</span></li>
+                                    <li>Total <span>$ #{shoppingCartMB.shoppingCart.totalPrice}</span></li>
                                 </ul>
                                 <h:commandButton class="btn btn-default check_out" value="Proceed to Checkout" action="#{purchaseOrderMB.checkout()}"/>
                             </div>

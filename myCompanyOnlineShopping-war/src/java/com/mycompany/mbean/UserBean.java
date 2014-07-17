@@ -3,14 +3,18 @@ package com.mycompany.mbean;
 import com.mycompany.services.CreditCardService;
 import com.mycompany.services.UserService;
 import com.mycompany.models.CreditCard;
+import com.mycompany.models.Product;
 import com.mycompany.models.Role;
 import com.mycompany.models.Users;
 import com.mycompany.models.Vendor;
 import com.mycompany.models.VendorUser;
+import com.mycompany.services.ProductService;
 import com.mycompany.services.RoleService;
 import com.mycompany.services.VendorService;
 import com.mycompany.util.PasswordService;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
@@ -44,6 +48,9 @@ public class UserBean implements Serializable {
     @EJB
     private VendorService vendorService;
     private VendorUser vendoruser = new VendorUser();
+    
+    @EJB
+    private ProductService productService;
 
     @Inject
     CreditCardBean creditcardMBean;
@@ -161,9 +168,9 @@ public class UserBean implements Serializable {
             else if (userrole.getUserCode() == 4) {
                 userLogged = true;
                 activeSession.setAttribute("loggedUser", user);
-                retURL = "user_home";
+                retURL = "index";
             } else {
-                retURL = "user_home";
+                retURL = "index";
             }
 
             if (redirect != null && redirect.length() > 0) {
@@ -177,7 +184,8 @@ public class UserBean implements Serializable {
     }
 
     public String registerUser() {
-        return "register_user";
+        user = new Users();
+        return "user_registration";
     }
 
     public String encryptUserPassword(String password) throws Exception {

@@ -24,6 +24,12 @@ import javax.persistence.NamedQuery;
 })
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    public static final int ROLE_ADMIN = 1;
+    public static final int ROLE_INTERNAL_USER = 2;
+    public static final int ROLE_VENDOR_USER = 3;
+    public static final int ROLE_BUYER = 4;
+    public static final int ROLE_GUEST = 5;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

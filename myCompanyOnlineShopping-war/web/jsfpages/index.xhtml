@@ -15,7 +15,10 @@
                 <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
-                <h:form>                	
+                <h:form>    
+                    <div class="product-list-message">
+                        #{productBean.products.size()} product(s) available.
+                    </div>
                     <div class="category-tab"><!--category-tab-->
                         <div class="tab-content">
                             <div class="tab-pane fade active in" >
@@ -24,11 +27,13 @@
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
+                                                    <h:commandLink action="#{productBean.viewProductDetail(product)}">
                                                     <img src="#{product.imageURL}" alt="" />
                                                     <h2>#{product.price}</h2>
                                                     <p>
-                                                        <h:commandLink value="#{product.name}" action="#{productBean.viewProductDetail(product)}"></h:commandLink>
+                                                        <h:outputText value="${product.name}"/>
                                                     </p>
+                                                    </h:commandLink>
                                                 </div>
                                             </div>
                                         </div>

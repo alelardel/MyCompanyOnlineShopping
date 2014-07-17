@@ -90,9 +90,24 @@ public class PurchaseOrderMB implements Serializable {
         usr = (Users) activeSession.getAttribute("loggedUser");
 
         if (usr != null) {
+            if(usr.getBillingAddress()==null) {
+                usr.setBillingAddress(new BillingAddress());
+            }
             billingAddress = usr.getBillingAddress();
+            
+            if(usr.getShippingAddress()==null) {
+                usr.setShoppingCart(new ShoppingCart());
+            }
             shippingAddress = usr.getShippingAddress();
         }
+    }
+
+    private void updateShoppingCartTotalCost(){
+        double total = 0;
+        for(ShoppingCartItem shoppingCartItem: shoppingCart.getShoppingCartItems()) {
+            total += shoppingCartItem.getPrice() * shoppingCartItem.getQuantity();
+        }
+        shoppingCart.setTotalPrice(total);
     }
 
     public String addToCart(int productId) {
@@ -128,11 +143,13 @@ public class PurchaseOrderMB implements Serializable {
         } else {
             System.out.println("Product add failed");
         }
+        updateShoppingCartTotalCost();
         return "cart";
     }
 
     public void removeProduct(ShoppingCartItem item) {
         shoppingCart = shoppingCartService.removeFromCart(shoppingCart, item);
+        updateShoppingCartTotalCost();
     }
 
     public void updateProduct(ShoppingCartItem item) {
@@ -143,6 +160,7 @@ public class PurchaseOrderMB implements Serializable {
             }
         }
         shoppingCart = shoppingCartService.addToCart(shoppingCart);
+        updateShoppingCartTotalCost();
     }
 
     public String saveAddress() {

@@ -48,8 +48,10 @@
                                 
                                 <h:outputText id="vcustpassout" value="Password: "/>
                                 <h:inputSecret id="vcustpassin" value="#{vendorMBean.vuser.password}"/>
-                            <h:commandButton id="submit" styleClass="searchform-button" action="#{vendorMBean.sendVendorRequest()}" value="Register"/> 
-                            <h:commandButton id="cancel" class="btn btn-default" value="Cancel" immediate="true" type="reset"/>
+                                
+                                .
+                                <h:commandButton id="submit" class="button" action="#{vendorMBean.sendVendorRequest()}" value="Register"/> 
+                            </h:panelGrid>
                         </h:form>
                         <br/>
                     </div>

@@ -2,6 +2,8 @@ package com.mycompany.mbean;
 
 import com.mycompany.models.Category;
 import com.mycompany.models.Product;
+import com.mycompany.models.Role;
+import com.mycompany.models.Users;
 import com.mycompany.models.Vendor;
 import com.mycompany.models.VendorUser;
 import com.mycompany.services.ProductService;
@@ -11,9 +13,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -94,8 +98,18 @@ public class ProductBean implements Serializable {
     }
 
     public String listProduct() throws Exception {
-        products = productService.findAll();
-        return "product_list";
+        products = new ArrayList<>();
+        List<Product> result = productService.findAll();
+        
+        Users loggedInUser = this.getLoggedInUser();
+        if(loggedInUser!=null && loggedInUser.getRole().getId()==Role.ROLE_VENDOR_USER) {
+            for(Product prod: result) {
+                products.add(prod);
+            }
+        } else {
+            products = result;
+        }
+        return "index";
     }
 
     public String addProductPage() {
@@ -133,25 +147,52 @@ public class ProductBean implements Serializable {
      * @return
      */
     public String searchProduct() {
-        List<Product> searchResult = productService.searchByProductName(searchKey);
-        if (!searchResult.isEmpty()) {
-            products = searchResult;
-            return "user_searchResult";            
-        }
+        products = new ArrayList<>();
+        List<Product> result = productService.searchByProductName(searchKey);
         
-        return null;
+        Users loggedInUser = this.getLoggedInUser();
+        if(loggedInUser!=null && loggedInUser.getRole().getId()==Role.ROLE_VENDOR_USER) {
+            for(Product prod: result) {
+                products.add(prod);
+            }
+        } else {
+            products = result;
+        }
+        return "index";
     }
     
     public String searchCategory(int categoryId) {
         products = new ArrayList<>();
-        for(Product prod: productService.getAll()) {
-            if(prod !=null && prod.getCategory()!=null){
-                if(prod.getCategory().getId()==categoryId){
-                    products.add(prod);
+        List<Product> result = productService.findAll();
+        
+        List<Product> tempProducts = new ArrayList<>();
+        
+        Users loggedInUser = this.getLoggedInUser();
+        if(loggedInUser!=null && loggedInUser.getRole().getId()==Role.ROLE_VENDOR_USER) {
+            for(Product prod: result) {
+                tempProducts.add(prod);
+            }
+        } else {
+            tempProducts = result;
+        }
+        
+        if(categoryId==0) {
+            products = tempProducts;
+        } else {
+            for(Product prod: tempProducts) {
+                if(prod !=null && prod.getCategory()!=null){
+                    if(prod.getCategory().getId()==categoryId){
+                        products.add(prod);
+                    }
                 }
             }
         }
-        return "user_home";
+        return "index";
+    }
+    
+    public Users getLoggedInUser() {
+        HttpSession activeSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        return (Users) activeSession.getAttribute("loggedUser");
     }
 
 }

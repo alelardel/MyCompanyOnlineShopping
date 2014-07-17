@@ -14,7 +14,6 @@
                 <ui:include src="/sections/mycomp/indexHeaderTemplate.xhtml"/>
             </ui:define>
             <ui:define name="sidebarLeft">
-                <ui:include src="/sections/mycomp/sidebarLeft.xhtml"/>
             </ui:define>
             <ui:define name="content">
 
@@ -33,9 +32,9 @@
                                 <h:inputText id="custadin" value="#{userBean.user.email}"/>
                                 <h:outputText id="vcustpassout" value="Password: "/>
                                 <h:inputSecret id="custpassin" value="#{userBean.user.password}"/>
-
+                                .
+                                <h:commandButton id="submit" class="button" action="#{userBean.addUsers()}" value="Register"/>
                             </h:panelGrid>
-                            <h:commandButton id="submit" styleClass="searchform-button" action="#{userBean.addUsers()}" value="Register"/>
                         </h:form>
                         <br/>
                     </div><!--/sign up form-->

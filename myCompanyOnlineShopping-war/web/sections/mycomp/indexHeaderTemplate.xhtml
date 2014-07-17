@@ -31,7 +31,7 @@
                                             <div class="logo pull-left">
                                                     <a href="#">
                                                         <h:form>
-                                                            <h:commandLink action="index">
+                                                            <h:commandLink action="#{productBean.listProduct()}">
                                                                 <h:graphicImage library="images" name="home/logo.png"/>
                                                             </h:commandLink>
                                                         </h:form>
@@ -54,7 +54,7 @@
                                                     <ul class="nav navbar-nav">
                                                         <li><h:commandLink id="hometxt" value="Home" action="index"></h:commandLink></li>
                                                         <li><h:commandLink id="loginlink" value="Login" action="user_login"></h:commandLink></li> 
-                                                        <li><h:commandLink id="register" value="Register Buyer" action="user_registration"></h:commandLink></li>
+                                                        <li><h:commandLink id="register" value="Register Buyer" action="#{userBean.registerUser()}"></h:commandLink></li>
                                                         <li><h:commandLink id="vendorreg" value="Register Vendor" action="vendor_registration"></h:commandLink></li>
                                                          <li><h:commandLink id="viewcart" value="View Cart" action="cart"></h:commandLink></li>
                                                     </ul>

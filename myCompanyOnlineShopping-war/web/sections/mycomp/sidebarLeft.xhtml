@@ -13,13 +13,23 @@
                 <div class="left-sidebar">
                     <h2>Category</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <h:form>
+                            <c:set var="catid" value="0"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h:form>
+                                        <h4 class="panel-title"><h:commandButton class="category-link" value="All categories" action="#{productBean.searchCategory(0)}"></h:commandButton></h4>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </h:form>
                         <ui:repeat value="${categoryMB.allCategories}" var="category">
                             <h:form>
                                 <c:set var="catid" value="#{category.id}"/>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h:form>
-                                            <h4 class="panel-title"><h:commandButton value="#{category.categoryName}" action="#{productBean.searchCategory(catid)}"></h:commandButton></h4>
+                                            <h4 class="panel-title"><h:commandButton class="category-link" value="#{category.categoryName}" action="#{productBean.searchCategory(catid)}"></h:commandButton></h4>
                                         </h:form>
                                     </div>
                                 </div>
